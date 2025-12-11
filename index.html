@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Piyush Media & Marketing | Meta Ads & Lead Generation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Piyush Media & Marketing – We help brands grow with Meta Ads, Google Ads, lead generation, and high-conversion marketing." />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg-dark: #050816;
+            --bg-section: #0b1020;
+            --bg-card: #11182b;
+            --accent: #ff8c32;
+            --accent-soft: rgba(255, 140, 50, 0.12);
+            --text-main: #f9fafb;
+            --text-muted: #a6b0c3;
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --radius-xl: 1.4rem;
+            --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+            --max-width: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #182747 0, #020511 55%);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Layout helpers */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 4.5rem 0;
+        }
+
+        /* Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(16px);
+            background: linear-gradient(to bottom,
+                    rgba(5, 8, 22, 0.98),
+                    rgba(5, 8, 22, 0.86),
+                    transparent);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #ffce7a, #ff8c32);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .brand-text .name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .brand-text .tag {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            transition: color 0.2s ease, opacity 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-main);
+            opacity: 0.9;
+        }
+
+        .btn-nav {
+            padding: 0.55rem 1.3rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: radial-gradient(circle at top left, #ffb36a, #ff7a1a);
+            color: #14110f;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .btn-nav:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 4rem 0 4.5rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 1.1rem;
+        }
+
+        .eyebrow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.16);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 3.2vw + 1.5rem, 3.4rem);
+            line-height: 1.08;
+            margin-bottom: 0.9rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(120deg, #ffb366, #ff7a1a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtext {
+            color: var(--text-muted);
+            font-size: 0.96rem;
+            max-width: 480px;
+            margin-bottom: 1.7rem;
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-bottom: 1.7rem;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            font-size: 0.9rem;
+            padding: 0.8rem 1.4rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            text-decoration: none;
+            transition: transform 0.15s ease, box-shadow 0.15s ease,
+                background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: radial-gradient(circle at top left, #ffb974, #ff7a1a);
+            color: #140b05;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.8);
+        }
+
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(15, 23, 42, 1);
+            border-color: rgba(148, 163, 184, 0.5);
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
+        .hero-meta-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.85);
+        }
+
+        /* Hero right card */
+        .hero-card {
+            border-radius: calc(var(--radius-xl) * 1.1);
+            border: 1px solid var(--border-soft);
+            background: radial-gradient(circle at top left,
+                    rgba(56, 189, 248, 0.12),
+                    transparent 55%),
+                radial-gradient(circle at bottom right,
+                    rgba(255, 140, 50, 0.16),
+                    transparent 55%),
+                #050816;
+            padding: 1.6rem 1.5rem 1.7rem;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.1rem;
+            font-size: 0.8rem;
+        }
+
+        .badge-soft {
+            padding: 0.26rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text-muted);
+        }
+
+        .hero-card-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .chart-bars {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            align-items: flex-end;
+            gap: 0.35rem;
+            margin-bottom: 1.4rem;
+            height: 95px;
+        }
+
+        .bar {
+            border-radius: 999px;
+            background: linear-gradient(to top, #1f2937, #38bdf8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar:nth-child(3),
+        .bar:nth-child(5),
+        .bar:nth-child(6) {
+            background: linear-gradient(to top, #1f2937, #f97316);
+        }
+
+        .bar::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                    transparent,
+                    rgba(255, 255, 255, 0.18));
+            opacity: 0.8;
+        }
+
+        .bar-1 {
+            height: 30%;
+        }
+
+        .bar-2 {
+            height: 52%;
+        }
+
+        .bar-3 {
+            height: 78%;
+        }
+
+        .bar-4 {
+            height: 45%;
+        }
+
+        .bar-5 {
+            height: 90%;
+        }
+
+        .bar-6 {
+            height: 65%;
+        }
+
+        .hero-card-footer {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+            font-size: 0.72rem;
+        }
+
+        .stat-chip {
+            border-radius: 0.9rem;
+            padding: 0.7rem 0.75rem;
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            background: rgba(15, 23, 42, 0.92);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            margin-bottom: 0.18rem;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .stat-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.12rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            margin-top: 0.35rem;
+        }
+
+        .stat-pill.positive {
+            background: rgba(22, 163, 74, 0.16);
+            color: #4ade80;
+        }
+
+        .stat-pill.neutral {
+            background: rgba(59, 130, 246, 0.18);
+            color: #93c5fd;
+        }
+
+        .stat-pill.accent {
+            background: rgba(248, 171, 94, 0.16);
+            color: #fed7aa;
+        }
+
+        .glow-orb {
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent);
+            right: -45px;
+            top: -60px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Section headings */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title-group h2 {
+            font-size: 1.7rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .section-title-group p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .section-tag {
+            font-size: 0.78rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            color: var(--text-muted);
+        }
+
+        /* Services */
+        .services {
+            background: radial-gradient(circle at top right, #111827, #050816);
+            border-top: 1px solid rgba(148, 163, 184, 0.18);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.4rem;
+        }
+
+        .service-card {
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-soft);
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1.4rem 1.3rem 1.5rem;
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.55);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            transition: transform 0.16s ease, box-shadow 0.16s ease,
+                border-color 0.16s ease, background 0.16s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left,
+                    rgba(248, 171, 94, 0.18),
+                    transparent 60%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(248, 171, 94, 0.7);
+            background: rgba(15, 23, 42, 0.99);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .service-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .service-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex: 1;
+        }
+
+        .service-tagline {
+            font-size: 0.78rem;
+            padding-top: 0.35rem;
+            border-top: 1px dashed rgba(148, 163, 184, 0.45);
+            margin-top: 0.5rem;
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        /* Process */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.4rem;
+        }
+
+        .process-step {
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-soft);
+            background: rgba(15, 23, 42, 0.92);
+            padding: 1.2rem 1.3rem 1.3rem;
+            font-size: 0.86rem;
+        }
+
+        .step-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+
+        .step-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Portfolio */
+        .portfolio {
+            background: radial-gradient(circle at top left, #020617, #020617 45%, #050816);
+            border-top: 1px solid rgba(15, 23, 42, 0.9);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.4rem;
+        }
+
+        .portfolio-card {
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-soft);
+            background: rgba(15, 23, 42, 0.97);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        .portfolio-thumb {
+            height: 150px;
+            background: linear-gradient(135deg, #1d4ed8, #22c55e, #f97316);
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .portfolio-thumb::after {
+            display: none;
+        }
+
+        .portfolio-body {
+            padding: 1rem 1.1rem 1.1rem;
+            font-size: 0.86rem;
+        }
+
+        .portfolio-title {
+            font-size: 0.96rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .portfolio-meta {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.4rem;
+        }
+
+        .plan {
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-soft);
+            background: rgba(15, 23, 42, 0.96);
+            padding: 1.5rem 1.4rem 1.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .plan.highlight {
+            border-color: rgba(248, 171, 94, 0.9);
+            background: radial-gradient(circle at top left,
+                    rgba(248, 171, 94, 0.16),
+                    transparent 55%),
+                rgba(15, 23, 42, 0.99);
+            transform: translateY(-3px);
+        }
+
+        .plan-label {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        .plan-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .plan-price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+
+        .plan-price span {
+            font-size: 0.76rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .plan ul {
+            list-style: none;
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            margin: 0.3rem 0 0.7rem;
+        }
+
+        .plan li {
+            display: flex;
+            align-items: baseline;
+            gap: 0.45rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .plan li::before {
+            content: "•";
+            color: #22c55e;
+            font-size: 1.1rem;
+        }
+
+        .plan-cta {
+            margin-top: auto;
+        }
+
+        .plan-cta a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            font-size: 0.86rem;
+            text-decoration: none;
+            transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+        }
+
+        .plan.highlight .plan-cta a {
+            background: radial-gradient(circle at top left, #ffb36a, #ff7a1a);
+            border-color: transparent;
+            color: #111827;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .plan-cta a:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.4rem;
+        }
+
+        .testimonial {
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-soft);
+            background: rgba(15, 23, 42, 0.94);
+            padding: 1.3rem 1.4rem;
+            font-size: 0.86rem;
+        }
+
+        .testimonial-quote {
+            color: var(--text-muted);
+            margin-bottom: 0.9rem;
+        }
+
+        .testimonial-author {
+            font-size: 0.86rem;
+            font-weight: 500;
+        }
+
+        .testimonial-role {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Section */
+        .cta-banner {
+            border-radius: calc(var(--radius-xl) * 1.15);
+            border: 1px solid rgba(248, 171, 94, 0.75);
+            padding: 1.8rem 1.8rem 1.9rem;
+            background: radial-gradient(circle at top left,
+                    rgba(248, 171, 94, 0.26),
+                    transparent 55%),
+                radial-gradient(circle at bottom right, #0b1220, #020617);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.4rem;
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.8);
+        }
+
+        .cta-text h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .cta-text p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .cta-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 1.8rem;
+        }
+
+        .contact-card {
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-soft);
+            background: rgba(15, 23, 42, 0.96);
+            padding: 1.4rem 1.5rem 1.6rem;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .contact-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 1.1rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            font-size: 0.82rem;
+        }
+
+        .form-field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            color: var(--text-muted);
+        }
+
+        input,
+        select,
+        textarea {
+            border-radius: 0.9rem;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            padding: 0.6rem 0.7rem;
+            background: rgba(15, 23, 42, 0.98);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.86rem;
+            outline: none;
+            transition: border-color 0.16s ease, box-shadow 0.16s ease,
+                background 0.16s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: rgba(248, 171, 94, 0.85);
+            box-shadow: 0 0 0 1px rgba(248, 171, 94, 0.55);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 0.5rem;
+        }
+
+        .contact-info {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .contact-info strong {
+            color: var(--text-main);
+        }
+
+        .contact-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.45rem 0.85rem;
+            border-radius: 999px;
+            border: 1px dashed rgba(148, 163, 184, 0.7);
+            font-size: 0.78rem;
+            margin-top: 0.45rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(15, 23, 42, 0.95);
+            padding: 1.6rem 0 1.9rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-card {
+                order: -1;
+                margin-bottom: 1.5rem;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .pricing-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .contact-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 3rem;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .pricing-grid,
+            .process-grid,
+            .testimonials-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            form {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .cta-banner {
+                padding: 1.4rem 1.2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <header id="top">
+        <div class="container nav-inner">
+            <div class="logo-wrap">
+                <div class="logo">
+                    <img src="assets/images/logo.png" alt="Piyush Media Logo"
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
+                <div class="brand-text">
+                    <div class="name">Piyush Media &amp; Marketing</div>
+                    <div class="tag">Meta Ads • Leads • Creative Marketing</div>
+                </div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Work</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <a href="#contact" class="btn-nav">Book a Free Call</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <main>
+        <section class="hero" id="hero">
+            <div class="container hero-grid">
+                <!-- Left -->
+                <div>
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        Done-for-you Meta &amp; Google Ads for growth-focused brands
+                    </div>
+                    <h1>
+                        Performance marketing that
+                        <span>turns attention into revenue.</span>
+                    </h1>
+                    <p class="hero-subtext">
+                        Piyush Media &amp; Marketing helps businesses, creators, and
+                        startups generate consistent leads and sales using data-driven
+                        Meta Ads, Google Ads, and scroll-stopping creatives.
+                    </p>
+
+                    <div class="hero-ctas">
+                        <a href="#contact" class="btn-primary">Get a Free Growth Plan →</a>
+                        <a href="#portfolio" class="btn-secondary">View recent work</a>
+                    </div>
+
+                    <div class="hero-meta">
+                        <div class="hero-meta-item">
+                            <span class="hero-meta-dot"></span>
+                            <span>Conversion-focused ad strategy &amp; funnels</span>
+                        </div>
+                        <div class="hero-meta-item">
+                            <span class="hero-meta-dot"></span>
+                            <span>End-to-end campaign setup, tracking &amp; reporting</span>
+                        </div>
+                        <div class="hero-meta-item">
+                            <span class="hero-meta-dot"></span>
+                            <span>Flexible plans for small businesses and growing brands</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right analytics card -->
+                <!-- Right analytics card (Temporarily hidden)
+                <div class="hero-card" aria-hidden="true">
+                    <div class="glow-orb"></div>
+                    <div class="hero-card-header">
+                        <span class="badge-soft">Live Performance Snapshot</span>
+                        <span class="hero-card-title">Meta & Google Ads Overview</span>
+                    </div>
+
+                    <div class="chart-bars">
+                        <div class="bar bar-1"></div>
+                        <div class="bar bar-2"></div>
+                        <div class="bar bar-3"></div>
+                        <div class="bar bar-4"></div>
+                        <div class="bar bar-5"></div>
+                        <div class="bar bar-6"></div>
+                    </div>
+
+                    <div class="hero-card-footer">
+                        <div class="stat-chip">
+                            <div class="stat-label">Cost per Lead (sample)</div>
+                            <div class="stat-value">₹XX – ₹XX</div>
+                            <div class="stat-pill positive">
+                                ▲ Optimised targeting
+                            </div>
+                        </div>
+                        <div class="stat-chip">
+                            <div class="stat-label">Ad Click-Through Rate</div>
+                            <div class="stat-value">Consistently improving</div>
+                            <div class="stat-pill neutral">
+                                ⏱ A/B tested creatives
+                            </div>
+                        </div>
+                        <div class="stat-chip">
+                            <div class="stat-label">ROAS Focus</div>
+                            <div class="stat-value">Performance-first</div>
+                            <div class="stat-pill accent">
+                                🎯 Revenue & lead goals
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <h2>Services built to grow your business.</h2>
+                        <p>
+                            From first impression to final conversion – we design and manage
+                            each step of your paid marketing funnel.
+                        </p>
+                    </div>
+                    <div class="section-tag">Done-for-you performance marketing</div>
+                </div>
+
+                <div class="services-grid">
+                    <article class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3 class="service-title">Meta Ads Management</h3>
+                        <p class="service-text">
+                            Full-funnel Facebook &amp; Instagram campaigns – strategy,
+                            creatives, targeting, and optimisation – focused on leads and
+                            sales, not just impressions.
+                        </p>
+                        <div class="service-tagline">• Prospecting • Retargeting • A/B Testing</div>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">🔍</div>
+                        <h3 class="service-title">Google Ads &amp; Search</h3>
+                        <p class="service-text">
+                            High-intent Google Search, Display, and YouTube campaigns that
+                            reach people exactly when they are looking for your solution.
+                        </p>
+                        <div class="service-tagline">• Search • Display • Brand Protection</div>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">🎯</div>
+                        <h3 class="service-title">Lead Generation Funnels</h3>
+                        <p class="service-text">
+                            Lead forms, landing pages, and follow-up strategy working together
+                            to bring you more qualified inquiries every month.
+                        </p>
+                        <div class="service-tagline">
+                            • Landing Pages • Lead Forms • Follow-up Strategy
+                        </div>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">✨</div>
+                        <h3 class="service-title">Creative Design for Ads</h3>
+                        <p class="service-text">
+                            Scroll-stopping ad creatives, posters, and graphics that speak to
+                            your ideal customer and match your brand identity.
+                        </p>
+                        <div class="service-tagline">
+                            • Static &amp; Carousel • Reels Concepts • Brand Kits
+                        </div>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">📱</div>
+                        <h3 class="service-title">Social Media Marketing</h3>
+                        <p class="service-text">
+                            Content strategy, calendar, and management for your key social
+                            channels, aligned with your paid campaigns.
+                        </p>
+                        <div class="service-tagline">
+                            • Content Strategy • Posting • Insights
+                        </div>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon">🧩</div>
+                        <h3 class="service-title">Analytics &amp; Tracking</h3>
+                        <p class="service-text">
+                            Pixel setup, event tracking, and performance reporting so that
+                            every marketing rupee is accountable.
+                        </p>
+                        <div class="service-tagline">
+                            • Pixel &amp; Events • Dashboards • Reporting
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS -->
+        <section>
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <h2>A simple, collaborative process.</h2>
+                        <p>
+                            We keep communication clear and the workflow structured – so you
+                            always know what’s happening with your campaigns.
+                        </p>
+                    </div>
+                    <div class="section-tag">Strategy → Launch → Scale</div>
+                </div>
+
+                <div class="process-grid">
+                    <article class="process-step">
+                        <div class="step-label">Step 01</div>
+                        <h3 class="step-title">Discovery &amp; Growth Plan</h3>
+                        <p>
+                            We understand your offer, audience, and goals – then map a custom
+                            plan that clarifies channels, messaging, and KPIs.
+                        </p>
+                    </article>
+
+                    <article class="process-step">
+                        <div class="step-label">Step 02</div>
+                        <h3 class="step-title">Creative &amp; Campaign Setup</h3>
+                        <p>
+                            We design your creatives, build campaigns, install tracking, and
+                            ensure everything is aligned before launch.
+                        </p>
+                    </article>
+
+                    <article class="process-step">
+                        <div class="step-label">Step 03</div>
+                        <h3 class="step-title">Optimise, Report &amp; Scale</h3>
+                        <p>
+                            We monitor performance, run experiments, share clear reports, and
+                            scale what works while cutting what doesn’t.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO -->
+        <!-- PORTFOLIO -->
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <h2>Selected work & campaign examples.</h2>
+                        <p>
+                            A glimpse of how we translate strategy into creatives and ads
+                            across different industries.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="portfolio-grid">
+                    <!-- Project 1: Landing Page -->
+                    <article class="portfolio-card">
+                        <div class="portfolio-thumb"
+                            style="background-image: url('assets/images/portfolio-vip-updated.png'); background-size: cover; background-position: center;">
+                        </div>
+                        <div class="portfolio-body">
+                            <h3 class="portfolio-title">Sports Tips VIP Funnel</h3>
+                            <p>
+                                High-converting landing page for a sports insights community.
+                                Designed for speed and instant Trust.
+                            </p>
+                            <p class="portfolio-meta">
+                                <a href="https://vip-free-tennis-page.vercel.app/" target="_blank"
+                                    style="color: var(--accent); text-decoration: underline;">Visit Live Page →</a>
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 2: Ad Creatives -->
+                    <article class="portfolio-card">
+                        <div class="portfolio-thumb"
+                            style="background-image: url('assets/images/ad-creative-2.jpg'); background-size: cover; background-position: center;">
+                        </div>
+                        <div class="portfolio-body">
+                            <h3 class="portfolio-title">Winning Ad Creatives</h3>
+                            <p>
+                                Scroll-stopping graphics that clearly communicate value.
+                                Focused on "Benefit-First" messaging.
+                            </p>
+                            <p class="portfolio-meta">
+                                Strategy: Bold typography + Social Proof.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 3: Results -->
+                    <article class="portfolio-card">
+                        <div class="portfolio-thumb"
+                            style="background-image: url('assets/images/portfolio-stats.png'); background-size: cover; background-position: center;">
+                        </div>
+                        <div class="portfolio-body">
+                            <h3 class="portfolio-title">Live Campaign Performance</h3>
+                            <p>
+                                Real results from Meta Ads Manager. Consistently generating
+                                leads at optimal cost.
+                            </p>
+                            <p class="portfolio-meta">
+                                Metric: Low CPA & High CTR scaling.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Project 4: Weekly Reporting -->
+                    <article class="portfolio-card">
+                        <div class="portfolio-thumb"
+                            style="background-image: url('assets/images/portfolio-weekly-report-updated.png'); background-size: cover; background-position: center;">
+                        </div>
+                        <div class="portfolio-body">
+                            <h3 class="portfolio-title">Weekly Reporting</h3>
+                            <p>
+                                Detailed performance breakdowns and strategy adjustments.
+                                Transparency at every step.
+                            </p>
+                            <p class="portfolio-meta">
+                                Focus: ROI & Scalability.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING -->
+        <section id="pricing">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <h2>Flexible plans for different stages of growth.</h2>
+                        <p>
+                            Pick a plan that matches your current goals. You can always scale
+                            or customise as your marketing matures.
+                        </p>
+                    </div>
+                    <div class="section-tag">Ad spend is separate from management fee</div>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Starter -->
+                    <article class="plan">
+                        <div class="plan-label">For early-stage businesses</div>
+                        <h3 class="plan-name">Starter</h3>
+                        <div class="plan-price">
+                            ₹4,999 <span>/ month</span>
+                        </div>
+                        <ul>
+                            <li>Meta Ads setup &amp; management (1 ad account)</li>
+                            <li>Up to 2 campaigns with ongoing optimisation</li>
+                            <li>Basic monthly performance report</li>
+                            <li>Email &amp; WhatsApp support</li>
+                        </ul>
+                        <div class="plan-cta">
+                            <a href="#contact">Discuss this plan →</a>
+                        </div>
+                    </article>
+
+                    <!-- Growth -->
+                    <article class="plan highlight">
+                        <div class="plan-label">Best for brands ready to scale</div>
+                        <h3 class="plan-name">Growth</h3>
+                        <div class="plan-price">
+                            ₹9,999 <span>/ month</span>
+                        </div>
+                        <ul>
+                            <li>Meta + Google Ads management</li>
+                            <li>Advanced targeting, retargeting &amp; testing</li>
+                            <li>10+ ad creatives per month</li>
+                            <li>Landing page &amp; funnel recommendations</li>
+                            <li>Bi-weekly reporting &amp; strategy check-in</li>
+                        </ul>
+                        <div class="plan-cta">
+                            <a href="#contact">Apply for Growth plan →</a>
+                        </div>
+                    </article>
+
+                    <!-- Premium -->
+                    <article class="plan">
+                        <div class="plan-label">For aggressive &amp; fast-moving teams</div>
+                        <h3 class="plan-name">Premium</h3>
+                        <div class="plan-price">
+                            Custom <span>/ month</span>
+                        </div>
+                        <ul>
+                            <li>Multi-platform performance marketing</li>
+                            <li>Deep analytics, dashboards &amp; cohort views</li>
+                            <li>Dedicated strategy calls &amp; support</li>
+                            <li>Campaigns across markets &amp; languages</li>
+                        </ul>
+                        <div class="plan-cta">
+                            <a href="#contact">Talk about a custom scope →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section>
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <h2>Clients appreciate clarity &amp; performance.</h2>
+                        <p>
+                            Replace these with real testimonials as you work with more brands.
+                        </p>
+                    </div>
+                    <div class="section-tag">Trust &amp; long-term partnerships</div>
+                </div>
+
+                <div class="testimonials-grid">
+                    <article class="testimonial">
+                        <p class="testimonial-quote">
+                            “The process was clear from day one. Campaigns were launched
+                            quickly, and we understood exactly how our ad budget was being
+                            used.”
+                        </p>
+                        <div class="testimonial-author">Sanjay Kumar (Telegram Channel Owner)</div>
+                        <div class="testimonial-role">Founder, Service Business</div>
+                    </article>
+
+                    <article class="testimonial">
+                        <p class="testimonial-quote">
+                            “We finally have a consistent system to generate leads every
+                            month, without guessing which posts or ads will work.”
+                        </p>
+                        <div class="testimonial-author">Rahul Kumar (Telegram Channel Owner)</div>
+                        <div class="testimonial-role">Owner, Local Brand</div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA BANNER -->
+        <section>
+            <div class="container">
+                <div class="cta-banner">
+                    <div class="cta-text">
+                        <h3>Ready to map out your next growth campaign?</h3>
+                        <p>
+                            Share a few details about your brand, and we’ll send a free,
+                            no-obligation growth outline tailored to your goals.
+                        </p>
+                    </div>
+                    <div class="cta-actions">
+                        <a href="#contact" class="btn-primary">Get my free growth plan</a>
+                        <a href="https://wa.me/916202442690" target="_blank" rel="noopener" class="btn-secondary">Chat
+                            on WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <h2>Tell us about your brand.</h2>
+                        <p>
+                            Fill this quick form or message us directly – we’ll respond with a
+                            clear next step, not a generic pitch.
+                        </p>
+                    </div>
+                    <div class="section-tag">Average response time: within 24 hours</div>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <p>
+                            Use this form as a simple lead capture. You can connect it later
+                            to your preferred CRM or redirect it to WhatsApp/Email using any
+                            form-handling service.
+                        </p>
+
+                        <form action="https://formspree.io/f/mblnakak" method="POST" id="contactForm">
+                            <div class="form-field">
+                                <label for="name">Full name</label>
+                                <input id="name" name="name" type="text" placeholder="Your name" required />
+                            </div>
+
+                            <div class="form-field">
+                                <label for="business">Business / Brand</label>
+                                <input id="business" name="business" type="text" placeholder="Brand or company" />
+                            </div>
+
+                            <div class="form-field">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+                            </div>
+
+                            <div class="form-field">
+                                <label for="phone">Phone / WhatsApp</label>
+                                <input id="phone" name="phone" type="tel" placeholder="+91-6202442690" />
+                            </div>
+
+                            <div class="form-field">
+                                <label for="budget">Monthly ad budget (approx.)</label>
+                                <select id="budget" name="budget">
+                                    <option value="">Select</option>
+                                    <option value="5k-20k">₹5K – ₹20K</option>
+                                    <option value="20k-50k">₹20K – ₹50K</option>
+                                    <option value="50k-1lac">₹50K – ₹1 Lac</option>
+                                    <option value="1lac-plus">₹1 Lac +</option>
+                                </select>
+                            </div>
+
+                            <div class="form-field full">
+                                <label for="message">What would you like help with?</label>
+                                <textarea id="message" name="message"
+                                    placeholder="E.g. lead generation for my coaching program, sales for my online store, brand awareness for my local business, etc."
+                                    required></textarea>
+                            </div>
+
+                            <div class="form-submit" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <button type="submit" class="btn-primary">
+                                    Submit via Email
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="sendToWhatsapp()">
+                                    Submit via WhatsApp
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="contact-info">
+                        <div>
+                            <strong>Direct contact</strong>
+                            <div>Email: <a href="mailto:Piyushrajsingh092@gmail.com">Piyushrajsingh092@gmail.com</a>
+                            </div>
+                            <div>WhatsApp: <a href="https://wa.me/916202442690" target="_blank"
+                                    rel="noopener">+91-6202442690</a></div>
+                            <div class="contact-pill">
+                                💬 Prefer chat? Reach out on WhatsApp and mention
+                                “Growth Plan”.
+                            </div>
+                        </div>
+
+                        <div>
+                            <strong>Working with us</strong>
+                            <div>• Remote-friendly – we work with clients across India.</div>
+                            <div>• Simple onboarding – we guide you through ad account access.</div>
+                            <div>• Clear numbers – transparent reporting and next steps.</div>
+                        </div>
+
+                        <div>
+                            <strong>Social links</strong>
+                            <div>
+                                LinkedIn:
+                                <a href="https://www.linkedin.com/in/piyushraj-singh" target="_blank"
+                                    rel="noopener">www.linkedin.com/in/piyushraj-singh</a>
+                            </div>
+                            <div>
+                                Facebook Page:
+                                <a href="https://www.facebook.com/your-page-link" target="_blank" rel="noopener">Piyush
+                                    Media &amp; Marketing</a>
+                            </div>
+                            <div>
+                                Add Instagram / other links here as you like.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-inner">
+            <div>© <span id="year"></span> Piyush Media &amp; Marketing. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="#top">Back to top</a>
+                <a href="#">Privacy policy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        function sendToWhatsapp() {
+            const name = document.getElementById('name').value;
+            const business = document.getElementById('business').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const budget = document.getElementById('budget').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !message) {
+                alert('Please fill in at least your Name and Message.');
+                return;
+            }
+
+            const text = `*New Lead Enquiry*%0A%0A*Name:* ${name}%0A*Business:* ${business}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Budget:* ${budget}%0A*Message:* ${message}`;
+
+            const url = `https://wa.me/916202442690?text=${text}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+
+</html>
