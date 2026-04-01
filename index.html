@@ -5,12 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signhify Agency — Scale Your Brand With Performance Marketing</title>
     <meta name="description" content="Signhify builds profit machines, not just campaigns. Performance marketing, AI-powered strategies, and conversion-focused landing pages that scale your business.">
+    <meta name="keywords" content="SaaS developer, AI agency, gym management software, performance marketing, digital marketing agency, lead generation, web development">
+    <meta name="author" content="Signhify Agency">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Signhify Agency — Scale Your Brand With Performance Marketing">
+    <meta property="og:description" content="We engineer revenue machines that turn every dollar into 3, 5, or 10x. AI-powered strategies that compound.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://signhify.vercel.app">
+    <meta property="og:image" content="https://signhify.vercel.app/assets/images/logo.png">
+    <meta property="og:site_name" content="Signhify">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Signhify Agency — Revenue Machines">
+    <meta name="twitter:description" content="AI-powered performance marketing that scales. Get your free strategy call.">
+    <meta name="twitter:image" content="https://signhify.vercel.app/assets/images/logo.png">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Signhify Agency",
+      "description": "Performance marketing agency specializing in AI-powered strategies, lead generation, and conversion optimization.",
+      "url": "https://signhify.vercel.app",
+      "logo": "https://signhify.vercel.app/assets/images/logo.png",
+      "priceRange": "₹5,999 - ₹9,999",
+      "areaServed": "Global",
+      "serviceType": ["Digital Marketing", "Web Development", "Lead Generation", "AI Analytics"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+916202442690",
+        "contactType": "sales",
+        "email": "piyushrajsingh092@gmail.com"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/piyushraj-singh"
+      ]
+    }
+    </script>
+    
+    <!-- Product Schema for Gymflow SaaS -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Gymflow SaaS",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "description": "AI-powered gym management SaaS for handling members, payments, plans, and analytics across web and mobile platforms.",
+      "url": "https://gymflow-saas.vercel.app/",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Multi-tenant architecture",
+        "Real-time dashboard",
+        "Member management",
+        "Payment processing",
+        "Analytics & reporting"
+      ]
+    }
+    </script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
         :root{
             --bg:#06060c;--surface:#0d0d18;--surface-2:#12121f;--surface-3:#181828;
             --border:rgba(255,255,255,.06);--border-hover:rgba(255,255,255,.12);
@@ -20,13 +86,27 @@
             --purple:#a855f7;--purple-dim:rgba(168,85,247,.12);
             --orange:#ff6b35;--orange-dim:rgba(255,107,53,.12);
             --radius:16px;--max:1200px;
+            --nav-bg:rgba(6,6,12,.75);--nav-blur:24px;
         }
+        [data-theme="light"]{
+            --bg:#f8f9fc;--surface:#fff;--surface-2:#f0f2f8;--surface-3:#e8ecf4;
+            --border:rgba(0,0,0,.06);--border-hover:rgba(0,0,0,.12);
+            --text:#1a1a2e;--text-dim:#4a4a6a;--text-muted:#8888a0;
+            --nav-bg:rgba(248,249,252,.85);
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
         html{scroll-behavior:smooth;font-size:16px}
-        body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+        body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background .3s,color .3s}
         h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.15}
         a{text-decoration:none;color:inherit}
         img{max-width:100%;display:block}
 
+        /* === THEME TOGGLE === */
+        .theme-toggle{background:var(--surface-2);border:1px solid var(--border);border-radius:50px;padding:.3rem;cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:all .3s}
+        .theme-toggle:hover{border-color:var(--border-hover)}
+        .theme-btn{width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .3s;background:transparent;color:var(--text-muted)}
+        .theme-btn.active{background:var(--green);color:#000;box-shadow:0 0 12px var(--green-glow)}
+        
         /* === NOISE OVERLAY === */
         body::before{content:'';position:fixed;inset:0;opacity:.03;pointer-events:none;z-index:9999;
             background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -36,6 +116,9 @@
             background:radial-gradient(ellipse 800px 600px at 20% 10%,rgba(0,255,135,.06),transparent),
                        radial-gradient(ellipse 600px 500px at 80% 80%,rgba(77,159,255,.04),transparent),
                        radial-gradient(ellipse 500px 400px at 60% 30%,rgba(168,85,247,.03),transparent)}
+        [data-theme="light"] .ambient{background:radial-gradient(ellipse 800px 600px at 20% 10%,rgba(0,255,135,.04),transparent),
+                       radial-gradient(ellipse 600px 500px at 80% 80%,rgba(77,159,255,.03),transparent),
+                       radial-gradient(ellipse 500px 400px at 60% 30%,rgba(168,85,247,.02),transparent)}
 
         /* === CURSOR GLOW === */
         #cursor-glow{position:fixed;width:600px;height:600px;pointer-events:none;z-index:1;transform:translate(-50%,-50%);
@@ -149,6 +232,23 @@
         .pf-featured::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple));transform:scaleX(0);transition:transform .4s;transform-origin:left}
         .pf-featured:hover::after{transform:scaleX(1)}
 
+        /* === PRICING === */
+        .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
+        .price-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all .4s;display:flex;flex-direction:column;position:relative;overflow:hidden}
+        .price-card:hover{border-color:rgba(77,159,255,.3);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+        .price-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--green));transform:scaleX(0);transition:transform .4s;transform-origin:left}
+        .price-card:hover::after{transform:scaleX(1)}
+        .price-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+        .price-icon.g{background:var(--green-dim);color:var(--green)}
+        .price-icon.b{background:var(--blue-dim);color:var(--blue)}
+        .price-icon.p{background:var(--purple-dim);color:var(--purple)}
+        .price-icon.o{background:var(--orange-dim);color:var(--orange)}
+        .price-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
+        .price-card .price{font-family:'Space Grotesk';font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:.5rem}
+        .price-card .price span{font-size:.9rem;font-weight:500;color:var(--text-muted)}
+        .price-card p{color:var(--text-dim);font-size:.85rem;line-height:1.6;margin-bottom:1.5rem;flex-grow:1}
+        .price-card .btn{width:100%;justify-content:center;padding:.75rem 1rem}
+
         /* === PROFILE === */
         .profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
         .prf{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all .3s}
@@ -181,20 +281,73 @@
             .hero-desc{margin:0 auto 2rem}
             .hero-stats{justify-content:center}
             .hero-ctas{justify-content:center}
-            .services-grid,.profile-grid,.contact-grid{grid-template-columns:1fr}
+            .services-grid,.profile-grid,.contact-grid,.pricing-grid{grid-template-columns:1fr}
             .nav-links{display:none}
             .hamburger{display:block}
             .metric-grid{grid-template-columns:1fr 1fr}
             .portfolio-grid{grid-template-columns:1fr}
+            .pf-gymflow{grid-column:span 1}
+            .gymflow-btns{flex-direction:column}
+            .cta-btns{flex-direction:column;align-items:center}
+            .lead-form{margin:2rem 1rem}
         }
         @media(max-width:600px){
             .hero h1{font-size:2rem}
             .services-grid{grid-template-columns:1fr}
+            .chatbot{bottom:1rem;right:1rem}
+            .chatbot-window{width:300px;height:400px}
+            .cta-section{padding:3rem 1rem}
+            .cta-btns .btn{width:100%;justify-content:center}
         }
 
         /* === CARD TILT === */
         .tilt{transform-style:preserve-3d;perspective:1000px}
         .tilt-inner{transition:transform .3s}
+        
+        /* === GYMFLOW FEATURED CARD === */
+        .pf-gymflow{grid-column:span 2;position:relative;background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(255,159,28,.05));border-color:rgba(255,107,53,.25)!important}
+        .pf-gymflow::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,var(--orange),#ffbf69,var(--green));z-index:-1;opacity:0;transition:opacity .4s}
+        .pf-gymflow:hover::before{opacity:1}
+        .pf-gymflow .pf-preview{height:200px;background:linear-gradient(135deg,#ff6b35,#ff9f1c)!important}
+        .gymflow-preview-icons{font-size:3rem;display:flex;gap:1rem;justify-content:center;align-items:center}
+        .gymflow-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin:.8rem 0}
+        .gymflow-tag{background:var(--surface-2);border:1px solid var(--border);padding:.3rem .8rem;border-radius:99px;font-size:.72rem;font-weight:600;color:var(--text-dim)}
+        .gymflow-metrics{display:flex;gap:1rem;margin:1rem 0;flex-wrap:wrap}
+        .gymflow-metric{background:var(--surface-2);border:1px solid rgba(255,107,53,.15);padding:.5rem 1rem;border-radius:10px}
+        .gymflow-metric .gm-num{font-size:.8rem;font-weight:600;color:var(--orange)}
+        .gymflow-btns{display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap}
+        .pf-gymflow:hover{box-shadow:0 0 80px rgba(255,107,53,.2),0 20px 60px rgba(0,0,0,.4)}
+        
+        /* === CTA SECTION === */
+        .cta-section{padding:4rem 1.5rem;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+        .cta-inner{max-width:var(--max);margin:0 auto;text-align:center}
+        .cta-inner h2{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:1rem}
+        .cta-inner p{color:var(--text-dim);max-width:500px;margin:0 auto 2rem}
+        .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        
+        /* === LEAD CAPTURE FORM === */
+        .lead-form{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;max-width:500px;margin:2rem auto}
+        .lead-form h3{font-size:1.3rem;margin-bottom:1.5rem;text-align:center}
+        .lead-form input,.lead-form textarea{width:100%;padding:1rem;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-family:inherit;font-size:.95rem;margin-bottom:1rem;transition:border-color .3s}
+        .lead-form input:focus,.lead-form textarea:focus{outline:none;border-color:var(--green)}
+        .lead-form textarea{resize:vertical;min-height:100px}
+        .lead-form .btn{width:100%;justify-content:center}
+        
+        /* === AI CHATBOT === */
+        .chatbot{position:fixed;bottom:2rem;right:2rem;z-index:1000}
+        .chatbot-toggle{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));border:none;cursor:pointer;font-size:1.5rem;box-shadow:0 10px 40px rgba(0,255,135,.3);transition:transform .3s;display:flex;align-items:center;justify-content:center}
+        .chatbot-toggle:hover{transform:scale(1.1)}
+        .chatbot-window{position:absolute;bottom:80px;right:0;width:350px;height:450px;background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:none;flex-direction:column;overflow:hidden}
+        .chatbot.open .chatbot-window{display:flex}
+        .chatbot-header{background:linear-gradient(135deg,var(--green),var(--blue));padding:1rem;color:#000;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+        .chatbot-close{background:none;border:none;color:#000;font-size:1.2rem;cursor:pointer}
+        .chatbot-messages{flex:1;padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:.8rem}
+        .chat-msg{padding:.8rem 1rem;border-radius:12px;max-width:85%;font-size:.9rem}
+        .chat-msg.bot{background:var(--surface-2);align-self:flex-start}
+        .chat-msg.user{background:var(--green-dim);color:var(--text);align-self:flex-end}
+        .chatbot-input{padding:1rem;border-top:1px solid var(--border);display:flex;gap:.5rem}
+        .chatbot-input input{flex:1;padding:.8rem;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)}
+        .chatbot-input button{background:var(--green);border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:1rem}
     </style>
 </head>
 <body>
@@ -208,10 +361,15 @@
         <div class="nav-links">
             <a href="#services">Services</a>
             <a href="#portfolio">Portfolio</a>
+            <a href="#pricing">Pricing</a>
             <a href="#profile">About</a>
+            <div class="theme-toggle" role="button" aria-label="Toggle theme">
+                <button class="theme-btn active" data-theme="dark" aria-label="Dark mode">🌙</button>
+                <button class="theme-btn" data-theme="light" aria-label="Light mode">☀️</button>
+            </div>
             <a href="#contact" class="nav-cta">Book Free Call</a>
         </div>
-        <button class="hamburger" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'">☰</button>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').style.display=document.querySelector('.nav-links').style.display==='flex'?'none':'flex'" aria-label="Toggle menu">☰</button>
     </div>
 </nav>
 
@@ -315,6 +473,52 @@
     </div>
 </section>
 
+<!-- PRICING -->
+<section id="pricing">
+    <div class="sec-head reveal">
+        <div class="tag blue">Investment</div>
+        <h2>Clear Pricing For <span class="hl">Real Growth</span></h2>
+        <p>Transparent starting prices for our core services. No hidden fees or surprises.</p>
+    </div>
+    <div class="pricing-grid container">
+        <div class="price-card reveal reveal-delay-1">
+            <div class="price-icon g">📈</div>
+            <h3>Digital Marketing</h3>
+            <div class="price">₹9,999<span>/Month</span></div>
+            <p>Meta & Google Ads, PPC, Lead Generation</p>
+            <a href="#contact" class="btn btn-outline">Start Growing</a>
+        </div>
+        <div class="price-card reveal reveal-delay-2">
+            <div class="price-icon o">🎨</div>
+            <h3>Design & Branding</h3>
+            <div class="price">₹5,999<span></span></div>
+            <p>Logo, Graphics, Creatives, Branding</p>
+            <a href="#contact" class="btn btn-outline">Start Growing</a>
+        </div>
+        <div class="price-card reveal reveal-delay-3">
+            <div class="price-icon b">💻</div>
+            <h3>Web Development</h3>
+            <div class="price">₹7,999<span></span></div>
+            <p>Modern, Responsive, Custom Solutions</p>
+            <a href="#contact" class="btn btn-outline">Start Growing</a>
+        </div>
+        <div class="price-card reveal reveal-delay-4">
+            <div class="price-icon p">🔍</div>
+            <h3>SEO</h3>
+            <div class="price">₹8,999<span>/Month</span></div>
+            <p>On-Page, Off-Page, Technical SEO</p>
+            <a href="#contact" class="btn btn-outline">Start Growing</a>
+        </div>
+        <div class="price-card reveal reveal-delay-5">
+            <div class="price-icon g">📱</div>
+            <h3>Social Media</h3>
+            <div class="price">Custom<span></span></div>
+            <p>Content, Management, Ads, Engagement</p>
+            <a href="#contact" class="btn btn-outline">Start Growing</a>
+        </div>
+    </div>
+</section>
+
 <!-- PORTFOLIO -->
 <section id="portfolio">
     <div class="sec-head reveal">
@@ -323,10 +527,41 @@
         <p>Every project is a profit system — engineered, tested, and scaled. Don't take our word for it. See the receipts.</p>
     </div>
     <div class="container">
-        <!-- Recent Works: Featured Report -->
+        <!-- GYMWFLOW SAAS - FEATURED PROJECT -->
         <div class="portfolio-cat reveal">
-            <div class="cat-title">🔥 Recent Work — Featured Case Study</div>
-            <div class="cat-sub">A deep-dive audit that turned underperforming ad spend into a profit engine. Here's the proof.</div>
+            <div class="cat-title">🏆 Featured Project — Gymflow SaaS</div>
+            <div class="cat-sub">An AI-powered gym management SaaS for handling members, payments, plans, and analytics across web and mobile platforms.</div>
+            <div class="portfolio-grid">
+                <div class="pf-card pf-featured pf-gymflow" id="gymflow-card">
+                    <div class="pf-preview" style="background:linear-gradient(135deg,#ff6b35,#ff9f1c,#ffbf69)" data-tag="SaaS • Fitness Tech">
+                        <div class="gymflow-preview-icons">🏋️📱💳📊</div>
+                    </div>
+                    <div class="pf-body">
+                        <h3>Gymflow SaaS</h3>
+                        <p>AI-powered gym management platform with multi-tenant architecture, real-time dashboard, member management, payment processing, and comprehensive analytics. Built for gym owners who want to scale.</p>
+                        <div class="gymflow-tags">
+                            <span class="gymflow-tag">SaaS</span>
+                            <span class="gymflow-tag">Fitness Tech</span>
+                            <span class="gymflow-tag">Automation</span>
+                            <span class="gymflow-tag">Mobile + Web</span>
+                        </div>
+                        <div class="gymflow-metrics">
+                            <div class="gymflow-metric"><span class="gm-num">Performance Optimized</span></div>
+                            <div class="gymflow-metric"><span class="gm-num">Multi-tenant Architecture</span></div>
+                            <div class="gymflow-metric"><span class="gm-num">Real-time Dashboard</span></div>
+                        </div>
+                        <div class="gymflow-btns">
+                            <a href="https://gymflow-saas.vercel.app/" target="_blank" class="btn btn-primary">🌐 Live Web App</a>
+                            <a href="https://expo.dev/artifacts/eas/mmUgBVLCg7NSpwHwBpn2AA.apk" target="_blank" class="btn btn-outline">📲 Download APK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Recent Works: Featured -->
+        <div class="portfolio-cat reveal">
+            <div class="cat-title">🔥 Recent Work — WhatsApp CRM MVP</div>
+            <div class="cat-sub">A live deployable CRM MVP that shows Signhify can go beyond ad management and build lead-handling systems for businesses that need shared inbox visibility, follow-ups, and cleaner pipeline control.</div>
             <div class="portfolio-grid">
                 <a href="https://drive.google.com/file/d/16dHEoRCJvwYv6YEa9Qe8a7HSuxVc_iTT/view?usp=sharing" target="_blank" class="pf-card pf-featured">
                     <div class="pf-preview" style="background:linear-gradient(135deg,#1877f2,#a855f7)" data-tag="Featured Report">📊</div>
@@ -334,6 +569,14 @@
                         <h3>Meta Ads Performance Audit & Optimization Report</h3>
                         <p>A full-spectrum audit dissecting campaign structure, audience segmentation, creative fatigue, and bidding strategy — exposing exactly where ad spend was leaking and mapping a step-by-step optimization blueprint to unlock exponential ROAS.</p>
                         <span class="pf-link">View Full Report →</span>
+                    </div>
+                </a>
+                <a href="https://frontend-omega-eight-zbfx853zu2.vercel.app" target="_blank" class="pf-card">
+                    <div class="pf-preview" style="background:linear-gradient(135deg,#25d366,#128c7e)" data-tag="Live CRM">📱</div>
+                    <div class="pf-body">
+                        <h3>WhatsApp CRM - Full Stack MVP</h3>
+                        <p>Complete WhatsApp Business CRM with Frontend + Backend. Features: Contact management, Conversation tracking, Message templates, Analytics dashboard, Admin panel. Fully deployable MVP ready for production use.</p>
+                        <span class="pf-link">View Frontend →</span>
                     </div>
                 </a>
             </div>
@@ -385,11 +628,27 @@
                 </a>
             </div>
         </div>
-        <!-- Development -->
+        <!-- Custom Development -->
         <div class="portfolio-cat reveal">
             <div class="cat-title">💻 Custom Development Projects</div>
             <div class="cat-sub">Full-stack platforms engineered for speed, scale, and conversion from day one</div>
             <div class="portfolio-grid">
+                <a href="https://frontend-omega-eight-zbfx853zu2.vercel.app" target="_blank" class="pf-card">
+                    <div class="pf-preview" style="background:linear-gradient(135deg,#25d366,#128c7e)" data-tag="Full Stack MVP">📱</div>
+                    <div class="pf-body">
+                        <h3>WhatsApp CRM - Full Stack MVP</h3>
+                        <p>CompleteWhatsApp Business CRM with Frontend + Backend. Features include: Contact management, Conversation tracking, Message templates, Analytics dashboard, Admin panel. Fully deployable MVP ready for production use.</p>
+                        <span class="pf-link">View Frontend →</span>
+                    </div>
+                </a>
+                <a href="https://whatsapp-crm-backend-one.vercel.app" target="_blank" class="pf-card">
+                    <div class="pf-preview" style="background:linear-gradient(135deg,#4d9fff,#2d7dd2)" data-tag="Backend API">⚙️</div>
+                    <div class="pf-body">
+                        <h3>WhatsApp CRM Backend API</h3>
+                        <p>RESTful API built with Node.js/Express. Features: User authentication, WhatsApp session management, Contact & conversation CRUD, Message handling, Analytics endpoints, MongoDB integration. Production-ready backend service.</p>
+                        <span class="pf-link">View Backend API →</span>
+                    </div>
+                </a>
                 <a href="https://gplesports.vercel.app/" target="_blank" class="pf-card">
                     <div class="pf-preview" style="background:linear-gradient(135deg,#ff6b35,#f7931e)" data-tag="Live">⚽</div>
                     <div class="pf-body">
@@ -453,14 +712,129 @@
             <p>Connect with us</p>
         </a>
     </div>
+    
+    <!-- LEAD CAPTURE FORM -->
+    <div class="lead-form reveal">
+        <h3>🚀 Get Your Free Consultation</h3>
+        <form id="leadForm" onsubmit="handleLeadSubmit(event)">
+            <input type="text" name="name" placeholder="Your Name" required aria-label="Your name">
+            <input type="email" name="email" placeholder="Email Address" required aria-label="Email address">
+            <input type="tel" name="phone" placeholder="WhatsApp Number" required aria-label="WhatsApp number">
+            <textarea name="message" placeholder="Tell us about your project or requirements..." aria-label="Project details"></textarea>
+            <button type="submit" class="btn btn-primary">Send Inquiry →</button>
+        </form>
+    </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+    <div class="cta-inner reveal">
+        <h2>Build Your SaaS With Us</h2>
+        <p>Turn your idea into a production-ready SaaS product. From MVP to scale, we handle everything.</p>
+        <div class="cta-btns">
+            <a href="#contact" class="btn btn-primary">Book Free Consultation →</a>
+            <a href="https://gymflow-saas.vercel.app/" target="_blank" class="btn btn-outline">View Gymflow Demo</a>
+        </div>
+    </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
     <p>© 2026 Signhify Agency. Engineered to convert. Built to scale.</p>
+    <p style="margin-top:.5rem;font-size:.75rem;color:var(--text-muted)">Powered by <strong style="color:var(--green)">Signhify</strong> — Building premium SaaS products</p>
 </footer>
 
+<!-- AI CHATBOT -->
+<div class="chatbot" id="chatbot">
+    <div class="chatbot-window">
+        <div class="chatbot-header">
+            <span>🤖 Signhify AI Assistant</span>
+            <button class="chatbot-close" onclick="toggleChatbot()" aria-label="Close chat">×</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-msg bot">Hi! I'm here to help. Ask me about our services, pricing, or how we can help grow your business!</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Type your message..." aria-label="Chat message">
+            <button onclick="sendMessage()" aria-label="Send message">➤</button>
+        </div>
+    </div>
+    <button class="chatbot-toggle" onclick="toggleChatbot()" aria-label="Open chat">💬</button>
+</div>
+
 <script>
+const chatbotResponses={
+    "hello":"Hi! How can I help you today?",
+    "hi":"Hello! Welcome to Signhify. What would you like to know?",
+    "services":"We offer: Meta Ads, Google Ads, Lead Funnels, Telegram Marketing, Web Development, AI Analytics. Which interests you?",
+    "pricing":"Our starting prices: Digital Marketing ₹9,999/mo, Web Dev ₹7,999, SEO ₹8,999/mo, Design ₹5,999. Want details?",
+    "contact":"You can email us at piyushrajsingh092@gmail.com or WhatsApp +91 62024 42690",
+    "whatsapp":"Visit https://wa.me/916202442690 to connect on WhatsApp",
+    "email":"Our email is piyushrajsingh092@gmail.com",
+    "gymflow":"Gymflow is our AI-powered gym management SaaS! It handles members, payments, plans & analytics. Check it out: https://gymflow-saas.vercel.app/",
+    "saas":"We build premium SaaS products! Gymflow is an example - gym management software with multi-tenant architecture & real-time dashboards. Want to build your own SaaS?",
+    "default":"Thanks for reaching out! For specific questions, email us at piyushrajsingh092@gmail.com or call +91 62024 42690. We're happy to help!"
+};
+
+function toggleChatbot(){
+    document.getElementById('chatbot').classList.toggle('open');
+}
+
+function sendMessage(){
+    const input=document.getElementById('chatInput');
+    const msg=input.value.trim().toLowerCase();
+    if(!msg) return;
+    const msgs=document.getElementById('chatMessages');
+    msgs.innerHTML+=`<div class="chat-msg user">${input.value}</div>`;
+    let resp=chatbotResponses.default;
+    for(let key in chatbotResponses){
+        if(msg.includes(key)){resp=chatbotResponses[key];break}
+    }
+    setTimeout(()=>{
+        msgs.innerHTML+=`<div class="chat-msg bot">${resp}</div>`;
+        msgs.scrollTop=msgs.scrollHeight;
+    },500);
+    input.value='';
+}
+
+document.getElementById('chatInput').addEventListener('keypress',e=>{
+    if(e.key==='Enter')sendMessage();
+});
+
+// Theme toggle
+document.querySelectorAll('.theme-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        document.documentElement.setAttribute('data-theme',btn.dataset.theme);
+        localStorage.setItem('theme',btn.dataset.theme);
+    });
+});
+if(localStorage.getItem('theme')){
+    document.documentElement.setAttribute('data-theme',localStorage.getItem('theme'));
+    document.querySelectorAll('.theme-btn').forEach(btn=>{
+        btn.classList.toggle('active',btn.dataset.theme===localStorage.getItem('theme'));
+    });
+}
+
+// Lead form handling
+function handleLeadSubmit(e){
+    e.preventDefault();
+    const form=e.target;
+    const data={name:form.name.value,email:form.email.value,phone:form.phone.value,message:form.message.value};
+    const waMsg=`New Lead from Signhify Site!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nMessage: ${data.message}`;
+    window.open(`https://wa.me/916202442690?text=${encodeURIComponent(waMsg)}`,'_blank');
+    alert('Thanks! Redirecting to WhatsApp to complete your inquiry.');
+    form.reset();
+}
+
+// Analytics - track Gymflow clicks
+document.querySelectorAll('a[href*="gymflow"]').forEach(link=>{
+    link.addEventListener('click',()=>{
+        console.log('Gymflow click tracked');
+    });
+});
+
 // Cursor glow
 document.addEventListener('mousemove',e=>{
     document.getElementById('cursor-glow').style.left=e.clientX+'px';
@@ -483,7 +857,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 // Nav bg on scroll
 const nav=document.querySelector('nav');
 window.addEventListener('scroll',()=>{
-    nav.style.background=window.scrollY>50?'rgba(6,6,12,.92)':'rgba(6,6,12,.75)';
+    const theme=document.documentElement.getAttribute('data-theme');
+    nav.style.background=window.scrollY>50?(theme==='light'?'rgba(248,249,252,.95)':'rgba(6,6,12,.92)'):(theme==='light'?'rgba(248,249,252,.85)':'rgba(6,6,12,.75)');
 });
 
 // Mobile nav

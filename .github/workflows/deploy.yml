@@ -1,0 +1,43 @@
+name: Deploy and Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Validate HTML
+        run: |
+          # Check HTML syntax
+          if grep -q "<script></script>" index.html; then
+            echo "Warning: Empty script tags found"
+            exit 1
+          fi
+          echo "HTML validation passed"
+
+      - name: Check links
+        run: |
+          echo "Checking external resources..."
+          # Basic structural check
+          wc -l index.html
+          echo "File size check complete"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'

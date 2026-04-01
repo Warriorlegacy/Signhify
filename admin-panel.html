@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Piyush Media and Marketing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .upload-section {
+            display: none;
+        }
+
+        .upload-section.active {
+            display: block;
+        }
+
+        .upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9ff;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .upload-area.dragover {
+            border-color: #764ba2;
+            background: #f0f2ff;
+            transform: scale(1.02);
+        }
+
+        .upload-area .icon {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .upload-area p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .upload-area .btn {
+            margin-top: 20px;
+        }
+
+        .form-group.modern {
+            margin-bottom: 15px;
+        }
+
+        .form-group.modern label {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .form-group.modern input {
+            padding: 10px 14px;
+            border: 1px solid #e1e1e1;
+            background: #f8f9ff;
+        }
+
+        .form-group.modern input:focus {
+            background: #fff;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .upload-area .btn {
+            margin-top: 20px;
+        }
+
+        .file-list {
+            margin-bottom: 30px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9ff;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #e1e1e1;
+        }
+
+        .file-item .info {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .file-item .info .name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .file-item .info .size {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .file-item .status {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-uploading {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+        }
+
+        .stats {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .stats h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-item .label {
+            color: #666;
+        }
+
+        .stat-item .value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Recent works styles */
+        .recent-works-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e1e1e1;
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .work-card {
+            background: #f8f9ff;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .work-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .work-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .work-card-body {
+            padding: 15px;
+        }
+
+        .work-card h4 {
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .work-card p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .work-card a {
+            font-size: 13px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .work-card .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .work-card .delete-btn:hover {
+            background: #ff6b81;
+        }
+
+        .add-work-form {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed #667eea;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Admin Panel</h1>
+            <p>Piyush Media and Marketing - Manual Uploads</p>
+        </div>
+
+        <div class="content">
+            <!-- Authentication Form -->
+            <div id="authForm" class="auth-form">
+                <h2>Admin Login</h2>
+                <p class="alert alert-error" id="errorAlert" style="display: none;"></p>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter admin password">
+                </div>
+                <button class="btn" onclick="authenticate()">Login</button>
+            </div>
+
+            <!-- Upload Section -->
+            <div id="uploadSection" class="upload-section">
+                <button class="logout-btn" onclick="logout()">Logout</button>
+                
+                <div class="stats">
+                    <h3>Upload Statistics</h3>
+                    <div class="stat-item">
+                        <span class="label">Total Uploads</span>
+                        <span class="value" id="totalUploads">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Successful Uploads</span>
+                        <span class="value" id="successfulUploads">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Failed Uploads</span>
+                        <span class="value" id="failedUploads">0</span>
+                    </div>
+                </div>
+
+                <h2>Manual Uploads</h2>
+                <p class="alert alert-success" id="successAlert" style="display: none;"></p>
+
+                <div class="upload-area" id="uploadArea" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+                    <div class="icon">📤</div>
+                    <p>Drag and drop files here or click to browse</p>
+                    <button class="btn" onclick="document.getElementById('fileInput').click()">Select Files</button>
+                    <input type="file" id="fileInput" multiple style="display: none;" onchange="handleFileSelect(event)">
+                </div>
+
+                <div class="file-list" id="fileList"></div>
+
+                <div class="recent-works-section">
+                    <h2>Manage Recent Works</h2>
+                    <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Add works here to display them on the main portfolio page.</p>
+
+                    <div class="add-work-form" id="addWorkForm">
+                        <h3 style="margin-bottom: 15px; font-size: 16px; color: #333;">Add New Work</h3>
+                        <div class="form-group modern">
+                            <label>Title</label>
+                            <input type="text" id="workTitle" placeholder="Project title">
+                        </div>
+                        <div class="form-group modern">
+                            <label>Description</label>
+                            <input type="text" id="workDescription" placeholder="Short description of the work">
+                        </div>
+                        <div class="form-group modern">
+                            <label>Image URL</label>
+                            <input type="text" id="workImage" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="form-group modern">
+                            <label>Link URL (Optional)</label>
+                            <input type="text" id="workLink" placeholder="https://yourfunnel.com">
+                        </div>
+                        <button class="btn" style="width: 100%; margin-top: 10px;" onclick="addWork()">Save Work</button>
+                    </div>
+
+                    <div class="works-grid" id="adminWorksGrid">
+                        <!-- Works will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = 'admin123'; // Change this to your desired password
+        let isAuthenticated = false;
+        let adminWorks = [];
+        let uploadStats = {
+            total: 0,
+            successful: 0,
+            failed: 0
+        };
+
+        // Initialize works from localStorage
+        window.addEventListener('load', () => {
+            const savedWorks = localStorage.getItem('adminWorks');
+            if (savedWorks) {
+                adminWorks = JSON.parse(savedWorks);
+            }
+        });
+
+        // Authentication function
+        function authenticate() {
+            const password = document.getElementById('password').value;
+            if (password === ADMIN_PASSWORD) {
+                isAuthenticated = true;
+                document.getElementById('authForm').style.display = 'none';
+                document.getElementById('uploadSection').classList.add('active');
+                updateStats();
+                renderAdminWorks();
+            } else {
+                showError('Invalid password. Please try again.');
+            }
+        }
+
+        // Logout function
+        function logout() {
+            isAuthenticated = false;
+            document.getElementById('uploadSection').classList.remove('active');
+            document.getElementById('authForm').style.display = 'block';
+            document.getElementById('password').value = '';
+            hideAlerts();
+        }
+
+        // Handle file selection
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            processFiles(files);
+        }
+
+        // Handle drag and drop
+        function handleDragOver(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'copy';
+            document.getElementById('uploadArea').classList.add('dragover');
+        }
+
+        function handleDrop(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            document.getElementById('uploadArea').classList.remove('dragover');
+            const files = event.dataTransfer.files;
+            processFiles(files);
+        }
+
+        // Process files for upload
+        function processFiles(files) {
+            if (!isAuthenticated) return;
+
+            Array.from(files).forEach(file => {
+                uploadStats.total++;
+                addFileItem(file);
+            });
+        }
+
+        // Add file item to the list
+        function addFileItem(file) {
+            const fileList = document.getElementById('fileList');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="info">
+                    <div class="name">${file.name}</div>
+                    <div class="size">${formatFileSize(file.size)}</div>
+                </div>
+                <span class="status status-uploading">Uploading...</span>
+            `;
+            fileList.insertBefore(fileItem, fileList.firstChild);
+
+            // Simulate upload process
+            setTimeout(() => {
+                const success = Math.random() > 0.1; // 90% success rate
+                const statusElement = fileItem.querySelector('.status');
+                if (success) {
+                    uploadStats.successful++;
+                    statusElement.className = 'status status-success';
+                    statusElement.textContent = 'Upload Complete';
+                    showSuccessAlert(`Successfully uploaded ${file.name}`);
+                } else {
+                    uploadStats.failed++;
+                    statusElement.className = 'status status-error';
+                    statusElement.textContent = 'Upload Failed';
+                }
+                updateStats();
+            }, 1500 + Math.random() * 2000);
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('totalUploads').textContent = uploadStats.total;
+            document.getElementById('successfulUploads').textContent = uploadStats.successful;
+            document.getElementById('failedUploads').textContent = uploadStats.failed;
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorAlert = document.getElementById('errorAlert');
+            errorAlert.textContent = message;
+            errorAlert.style.display = 'block';
+            setTimeout(() => {
+                errorAlert.style.display = 'none';
+            }, 3000);
+        }
+
+        // Show success alert
+        function showSuccessAlert(message) {
+            const successAlert = document.getElementById('successAlert');
+            successAlert.textContent = message;
+            successAlert.style.display = 'block';
+            setTimeout(() => {
+                successAlert.style.display = 'none';
+            }, 3000);
+        }
+
+        // Hide all alerts
+        function hideAlerts() {
+            document.getElementById('errorAlert').style.display = 'none';
+            document.getElementById('successAlert').style.display = 'none';
+        }
+
+        // Handle upload area mouse leave
+        document.getElementById('uploadArea').addEventListener('dragleave', () => {
+            document.getElementById('uploadArea').classList.remove('dragover');
+        });
+
+        // Recent Works Logic
+        function addWork() {
+            if (!isAuthenticated) return;
+
+            const titleInput = document.getElementById('workTitle');
+            const descInput = document.getElementById('workDescription');
+            const imgInput = document.getElementById('workImage');
+            const linkInput = document.getElementById('workLink');
+
+            const title = titleInput.value.trim();
+            const description = descInput.value.trim();
+            const image = imgInput.value.trim();
+            const link = linkInput.value.trim();
+
+            if (!title || !description || !image) {
+                showError('Please fill in Title, Description, and Image URL.');
+                return;
+            }
+
+            const newWork = {
+                id: Date.now().toString(),
+                title,
+                description,
+                image,
+                link
+            };
+
+            adminWorks.unshift(newWork);
+            saveWorks();
+            renderAdminWorks();
+
+            // Clear form
+            titleInput.value = '';
+            descInput.value = '';
+            imgInput.value = '';
+            linkInput.value = '';
+            
+            showSuccessAlert('Work added successfully!');
+        }
+
+        function deleteWork(id) {
+            if (!isAuthenticated) return;
+            
+            if (confirm('Are you sure you want to delete this work?')) {
+                adminWorks = adminWorks.filter(work => work.id !== id);
+                saveWorks();
+                renderAdminWorks();
+                showSuccessAlert('Work deleted successfully!');
+            }
+        }
+
+        function saveWorks() {
+            localStorage.setItem('adminWorks', JSON.stringify(adminWorks));
+        }
+
+        function renderAdminWorks() {
+            const grid = document.getElementById('adminWorksGrid');
+            grid.innerHTML = '';
+
+            if (adminWorks.length === 0) {
+                grid.innerHTML = '<p style="color: #666; grid-column: 1 / -1;">No recent works added yet. Use the form above to add some.</p>';
+                return;
+            }
+
+            adminWorks.forEach(work => {
+                const card = document.createElement('div');
+                card.className = 'work-card';
+                
+                let linkHtml = '';
+                if (work.link) {
+                    linkHtml = `<a href="${work.link}" target="_blank">View Page &rarr;</a>`;
+                }
+
+                card.innerHTML = `
+                    <img src="${work.image}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/400x225/e1e1e1/999999?text=Image+Not+Found'">
+                    <div class="work-card-body">
+                        <h4>${work.title}</h4>
+                        <p>${work.description}</p>
+                        ${linkHtml}
+                        <button class="delete-btn" onclick="deleteWork('${work.id}')">Delete</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
