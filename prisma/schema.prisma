@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  business  String?
+  source    String   // "gymflow-landing", "investors", "pricing", etc.
+  metadata  Json?    // utm params, user agent, IP
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([createdAt])
+  @@index([source])
+}
+
+model Customer {
+  id                String      @id @default(cuid())
+  email             String      @unique
+  name              String?
+  stripeCustomerId  String      @unique
+  subscriptions     Subscription[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([email])
+  @@index([stripeCustomerId])
+}
+
+model Subscription {
+  id                     String   @id @default(cuid())
+  stripeSubscriptionId   String   @unique
+  customerId             String
+  customer              Customer @relation(fields: [customerId], references: [id])
+  status                 String   // active, canceled, past_due, unpaid, trialing, etc.
+  priceId                String
+  currentPeriodStart     DateTime
+  currentPeriodEnd       DateTime
+  cancelAtPeriodEnd      Boolean  @default(false)
+  canceledAt             DateTime?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([stripeSubscriptionId])
+  @@index([status])
+}
