@@ -254,21 +254,21 @@ export default function AgencyPage() {
         }
         .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-1); box-shadow: 0 0 12px var(--accent-1); animation: pulse 2s infinite; }
         
-        .hero h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); margin-bottom: 1.5rem; text-transform: uppercase; line-height: 0.95; }
-        .hero p { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-dim); max-width: 650px; margin-bottom: 3rem; line-height: 1.7; font-weight: 300; }
+        .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 1.5rem; text-transform: uppercase; line-height: 1.1; }
+        .hero p { font-size: 1.1rem; color: var(--text-dim); max-width: 650px; margin-bottom: 3rem; line-height: 1.7; font-weight: 400; }
         .hero-btns { display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center; margin-bottom: 4rem; }
 
         .hero-stats { display: flex; gap: 4rem; justify-content: center; border-top: 1px solid var(--border); padding-top: 3rem; width: 100%; max-width: 800px; }
         .stat-item { display: flex; flex-direction: column; gap: 0.2rem; }
-        .stat-val { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: var(--accent-1); }
+        .stat-val { font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: var(--accent-1); }
         .stat-lbl { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 500; }
 
         /* Sections */
-        section { padding: 8rem 2rem; position: relative; z-index: 2; }
+        section { padding: 6rem 2rem; position: relative; z-index: 2; }
         .container { max-width: var(--max); margin: 0 auto; }
-        .sec-title { text-align: center; margin-bottom: 5rem; }
+        .sec-title { text-align: center; margin-bottom: 4rem; }
         .sec-title .label { font-family: var(--font-heading); color: var(--accent-1); text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 1rem; }
-        .sec-title h2 { font-size: clamp(2.5rem, 5vw, 4rem); text-transform: uppercase; line-height: 1; }
+        .sec-title h2 { font-size: clamp(2rem, 4vw, 3rem); text-transform: uppercase; line-height: 1.1; }
 
         /* Dynamic Glass Cards */
         .glass-card {
@@ -328,6 +328,14 @@ export default function AgencyPage() {
         .visual-crm { background: linear-gradient(135deg, #064e3b, #047857); }
         .visual-crm .shape { width: 120px; height: 120px; background: linear-gradient(45deg, #10b981, #34d399); transform: rotate(45deg); transition: transform 0.7s; }
         .pf-card:hover .visual-crm .shape { transform: rotate(90deg) scale(1.1); }
+
+        .visual-report { background: linear-gradient(135deg, #1877f2, #a855f7); }
+        .visual-report .shape { width: 140px; height: 140px; border-radius: 15px; background: linear-gradient(45deg, #ffffff, #e2e8f0); transform: rotate(-10deg); transition: transform 0.7s; }
+        .pf-card:hover .visual-report .shape { transform: rotate(0deg) scale(1.1); }
+
+        .visual-telegram { background: linear-gradient(135deg, #0088cc, #005580); }
+        .visual-telegram .shape { width: 100px; height: 100px; border-radius: 50%; background: #ffffff; transform: scale(1); transition: transform 0.7s; }
+        .pf-card:hover .visual-telegram .shape { transform: scale(1.2); }
 
         .pf-badge { 
           position: absolute; top: 1.5rem; right: 1.5rem; z-index: 2; padding: 0.5rem 1.2rem; border-radius: 100px;
@@ -403,7 +411,7 @@ export default function AgencyPage() {
 
         /* Responsive */
         @media(max-width: 1024px) {
-          .hero h1 { font-size: clamp(3rem, 6vw, 5rem); }
+          .hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
           .hero-stats { gap: 2rem; flex-wrap: wrap; }
           .price-card.popular { transform: none; }
           .price-card.popular:hover { transform: translateY(-8px); }
@@ -607,6 +615,146 @@ export default function AgencyPage() {
                   <span className="pf-tag">Conversational UI</span>
                 </div>
                 <div className="pf-link-btn">View MVP <span>→</span></div>
+              </div>
+            </a>
+
+            {/* META ADS REPORT */}
+            <a href="https://drive.google.com/file/d/16dHEoRCJvwYv6YEa9Qe8a7HSuxVc_iTT/view?usp=sharing" target="_blank" className="pf-card reveal delay-2">
+              <div className="pf-visual visual-report">
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(255, 255, 255, 0.2)', borderColor: '#ffffff', color: '#000'}}>Audit Report</div>
+              </div>
+              <div className="pf-content">
+                <h3>Meta Ads Performance Audit</h3>
+                <p>A full-spectrum audit dissecting campaign structure, audience segmentation, creative fatigue, and bidding strategy — unlocking exponential ROAS.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Meta Ads</span>
+                  <span className="pf-tag">Strategy</span>
+                  <span className="pf-tag">ROAS</span>
+                </div>
+                <div className="pf-link-btn">View Full Report <span>→</span></div>
+              </div>
+            </a>
+
+            {/* TELEGRAM PAGES */}
+            <a href="https://vip-free-tennis-page.vercel.app/" target="_blank" className="pf-card reveal delay-3">
+              <div className="pf-visual visual-telegram">
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(0, 136, 204, 0.2)', borderColor: '#0088cc'}}>Telegram Funnel</div>
+              </div>
+              <div className="pf-content">
+                <h3>VIP Free Tennis</h3>
+                <p>Free tennis tips & predictions landing page engineered to convert sports enthusiasts into loyal Telegram community members.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Landing Page</span>
+                  <span className="pf-tag">Conversion</span>
+                </div>
+                <div className="pf-link-btn">View Live <span>→</span></div>
+              </div>
+            </a>
+
+            <a href="https://tennis-king-jackpot.vercel.app/" target="_blank" className="pf-card reveal delay-1">
+              <div className="pf-visual visual-telegram" style={{background: 'linear-gradient(135deg, #ffd700, #ff8c00)'}}>
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(255, 140, 0, 0.2)', borderColor: '#ff8c00'}}>Telegram Funnel</div>
+              </div>
+              <div className="pf-content">
+                <h3>Tennis King Jackpot</h3>
+                <p>Exclusive jackpot predictions page for tennis enthusiasts seeking a winning edge.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Landing Page</span>
+                  <span className="pf-tag">Community</span>
+                </div>
+                <div className="pf-link-btn">View Live <span>→</span></div>
+              </div>
+            </a>
+
+            <a href="https://cricket-king-rahul.vercel.app/" target="_blank" className="pf-card reveal delay-2">
+              <div className="pf-visual visual-telegram" style={{background: 'linear-gradient(135deg, #ff4757, #c0392b)'}}>
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(192, 57, 43, 0.2)', borderColor: '#c0392b'}}>Telegram Funnel</div>
+              </div>
+              <div className="pf-content">
+                <h3>Cricket King Rahul</h3>
+                <p>Premium cricket tips & match predictions landing page with insider-level analysis.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Landing Page</span>
+                  <span className="pf-tag">Community</span>
+                </div>
+                <div className="pf-link-btn">View Live <span>→</span></div>
+              </div>
+            </a>
+
+            <a href="https://hari-cricket.vercel.app/" target="_blank" className="pf-card reveal delay-3">
+              <div className="pf-visual visual-telegram" style={{background: 'linear-gradient(135deg, #3742fa, #2f3542)'}}>
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(47, 53, 66, 0.2)', borderColor: '#2f3542'}}>Telegram Funnel</div>
+              </div>
+              <div className="pf-content">
+                <h3>Hari Cricket</h3>
+                <p>Daily cricket predictions, team analysis & betting insights for serious players.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Landing Page</span>
+                  <span className="pf-tag">Community</span>
+                </div>
+                <div className="pf-link-btn">View Live <span>→</span></div>
+              </div>
+            </a>
+
+            <a href="https://rahul-silk.vercel.app/" target="_blank" className="pf-card reveal delay-1">
+              <div className="pf-visual visual-telegram" style={{background: 'linear-gradient(135deg, #a55eea, #8854d0)'}}>
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(136, 84, 208, 0.2)', borderColor: '#8854d0'}}>Telegram Funnel</div>
+              </div>
+              <div className="pf-content">
+                <h3>Rahul Silk</h3>
+                <p>Exclusive tips & premium predictions landing page for serious investors.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Landing Page</span>
+                  <span className="pf-tag">Community</span>
+                </div>
+                <div className="pf-link-btn">View Live <span>→</span></div>
+              </div>
+            </a>
+
+            <a href="https://whatsapp-crm-backend-one.vercel.app" target="_blank" className="pf-card reveal delay-2">
+              <div className="pf-visual visual-crm" style={{background: 'linear-gradient(135deg, #4d9fff, #2d7dd2)'}}>
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(45, 125, 210, 0.2)', borderColor: '#2d7dd2'}}>Backend API</div>
+              </div>
+              <div className="pf-content">
+                <h3>WhatsApp CRM Backend</h3>
+                <p>RESTful API built with Node.js/Express. Features: User auth, WhatsApp session management, Contact CRUD, MongoDB integration.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Node.js</span>
+                  <span className="pf-tag">Express</span>
+                  <span className="pf-tag">MongoDB</span>
+                </div>
+                <div className="pf-link-btn">View Backend API <span>→</span></div>
+              </div>
+            </a>
+
+            <a href="https://gplesports.vercel.app/" target="_blank" className="pf-card reveal delay-3">
+              <div className="pf-visual visual-gymflow" style={{background: 'linear-gradient(135deg, #ff6b35, #f7931e)'}}>
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(247, 147, 30, 0.2)', borderColor: '#f7931e'}}>Live Platform</div>
+              </div>
+              <div className="pf-content">
+                <h3>GPLE Sports</h3>
+                <p>Full-featured sports betting tips platform with live odds, predictions & user dashboard.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Web App</span>
+                  <span className="pf-tag">Sports</span>
+                </div>
+                <div className="pf-link-btn">View Live <span>→</span></div>
               </div>
             </a>
           </div>
