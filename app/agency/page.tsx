@@ -434,14 +434,15 @@ export default function AgencyPage() {
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
-        /* Portfolio Category Dividers */
-        .pf-category { grid-column: 1 / -1; margin: 3rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        /* Portfolio Category Dividers - NUCLEAR FIX */
+        .pf-category { grid-column: 1 / -1 !important; display: block !important; opacity: 1 !important; visibility: visible !important; margin: 4rem 0 2rem !important; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
         .pf-category h4 { font-family: var(--font-heading); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-1); margin-bottom: 0.5rem; }
         .pf-category p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 0; }
         
-        /* Force Visibility Override */
-        .pf-card, .pf-category { opacity: 1 !important; transform: none !important; display: flex !important; }
-        .pf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; opacity: 1 !important; visibility: visible !important; }
+        /* Portfolio Cards - NUCLEAR FIX */
+        .pf-card { opacity: 1 !important; transform: none !important; visibility: visible !important; display: flex !important; flex-direction: column; }
+        .pf-card:hover { transform: translateY(-10px) !important; }
+        .pf-grid { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important; gap: 2rem !important; opacity: 1 !important; visibility: visible !important; }
 
         /* Responsive */
         @media(max-width: 1024px) {
@@ -583,7 +584,7 @@ export default function AgencyPage() {
       {/* PORTFOLIO */}
       <section id="portfolio">
         <div className="container">
-          <div className="sec-title reveal">
+          <div className="sec-title">
             <span className="label">The Vault</span>
             <h2>Our <span className="text-gradient">Masterpieces</span></h2>
           </div>
