@@ -6,40 +6,58 @@ export default function AgencyPage() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
-    // Chatbot responses
-    const chatbotResponses: Record<string, string> = {
-      hello: 'Hi! How can I help you today?',
-      hi: 'Hello! Welcome to Signhify. What would you like to know?',
-      services: 'We offer: Meta Ads, Google Ads, Lead Funnels, Web Dev, SaaS Development. Which interests you?',
-      pricing: 'Our starting prices: Digital Marketing ₹9,999/mo, Web Dev ₹7,999, SEO ₹8,999/mo, Design ₹5,999.',
-      contact: 'Email us at piyushrajsingh092@gmail.com or WhatsApp +91 62024 42690',
-      whatsapp: 'Visit https://wa.me/916202442690 to connect on WhatsApp',
-      email: 'Our email is piyushrajsingh092@gmail.com',
-      saas: 'We build premium SaaS! Check out GigMind, TuitionTrack, or Gymflow in our portfolio.',
-      gigmind: 'GigMind is an AI-powered service marketplace for India. Tell our AI what you need, and we handle the rest!',
-      tuitiontrack: 'TuitionTrack is a complete SaaS for tutors to manage operations, progress, and parent visibility.',
-      default: 'Thanks for reaching out! For specific questions, email us at piyushrajsingh092@gmail.com or WhatsApp +91 62024 42690.',
-    }
+    // Conversation history for context
+    const conversationHistory: { role: string; content: string }[] = []
 
     function toggleChatbot() {
       document.getElementById('chatbot')?.classList.toggle('open')
     }
 
-    function sendMessage() {
+    async function sendMessage() {
       const input = document.getElementById('chatInput') as HTMLInputElement
-      const msg = input.value.trim().toLowerCase()
-      if (!msg) return
+      const userText = input.value.trim()
+      if (!userText) return
+
       const msgs = document.getElementById('chatMessages')!
-      msgs.innerHTML += `<div class="chat-msg user">${input.value}</div>`
-      let resp = chatbotResponses.default
-      for (const key in chatbotResponses) {
-        if (msg.includes(key)) { resp = chatbotResponses[key]; break }
-      }
-      setTimeout(() => {
-        msgs.innerHTML += `<div class="chat-msg bot">${resp}</div>`
-        msgs.scrollTop = msgs.scrollHeight
-      }, 500)
       input.value = ''
+      input.disabled = true
+
+      // Add user message to UI
+      msgs.innerHTML += `<div class="chat-msg user">${userText}</div>`
+      msgs.scrollTop = msgs.scrollHeight
+
+      // Add typing indicator
+      const typingId = 'typing-' + Date.now()
+      msgs.innerHTML += `<div class="chat-msg bot typing" id="${typingId}"><span class="dot-pulse"><span></span><span></span><span></span></span></div>`
+      msgs.scrollTop = msgs.scrollHeight
+
+      // Add to history
+      conversationHistory.push({ role: 'user', content: userText })
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: conversationHistory }),
+        })
+        const data = await res.json()
+        const reply = data.reply || "I'm having trouble right now. Please WhatsApp us at +91 62024 42690!"
+
+        // Remove typing indicator and add real response
+        document.getElementById(typingId)?.remove()
+        msgs.innerHTML += `<div class="chat-msg bot">${reply}</div>`
+        msgs.scrollTop = msgs.scrollHeight
+
+        // Save assistant reply to history
+        conversationHistory.push({ role: 'assistant', content: reply })
+      } catch {
+        document.getElementById(typingId)?.remove()
+        msgs.innerHTML += `<div class="chat-msg bot">Connection error. Please WhatsApp us directly at +91 62024 42690 🙏</div>`
+        msgs.scrollTop = msgs.scrollHeight
+      } finally {
+        input.disabled = false
+        input.focus()
+      }
     }
 
     const chatToggle = document.querySelector('.chatbot-toggle')
@@ -456,6 +474,17 @@ export default function AgencyPage() {
         .chatbot-input input:focus { outline: none; border-color: var(--accent-1); }
         .chatbot-input button { background: var(--accent-1); color: #000; border: none; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
         .chatbot-input button:hover { transform: scale(1.1); }
+        .chatbot-input input:disabled { opacity: 0.5; cursor: not-allowed; }
+        /* Typing indicator */
+        .chat-msg.typing { background: rgba(255,255,255,0.05); align-self: flex-start; }
+        .dot-pulse { display: inline-flex; gap: 4px; align-items: center; height: 20px; }
+        .dot-pulse::before, .dot-pulse::after, .dot-pulse span {
+          content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-1);
+          animation: dotBounce 1.2s infinite ease-in-out;
+        }
+        .dot-pulse::before { animation-delay: 0s; }
+        .dot-pulse::after { content: ''; animation-delay: 0.4s; }
+        @keyframes dotBounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
       ` }} />
 
       <div className="mesh-bg" />
