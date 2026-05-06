@@ -101,9 +101,14 @@ export default function AgencyPage() {
           obs.unobserve(entry.target)
         }
       })
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
+    }, { threshold: 0.05, rootMargin: '0px 0px 100px 0px' })
     
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
+
+    // Fallback: force-reveal all elements after 2.5s in case observer misses any
+    const fallbackTimer = setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'))
+    }, 2500)
 
     // Navbar Scroll Effect
     const nav = document.querySelector('nav')
@@ -113,6 +118,7 @@ export default function AgencyPage() {
     })
 
     return () => {
+      clearTimeout(fallbackTimer)
       document.querySelectorAll('.glass-card, .pf-card').forEach((card) => {
         (card as HTMLElement).removeEventListener('mousemove', handleMouseMove);
       });
@@ -405,9 +411,14 @@ export default function AgencyPage() {
         /* Animations */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); filter: blur(10px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
         @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.85); box-shadow: 0 0 20px var(--accent-1); } }
-        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+        /* Portfolio Category Dividers */
+        .pf-category { grid-column: 1 / -1; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+        .pf-category h4 { font-family: var(--font-heading); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-1); margin-bottom: 0.5rem; }
+        .pf-category p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 0; }
 
         /* Responsive */
         @media(max-width: 1024px) {
@@ -618,8 +629,14 @@ export default function AgencyPage() {
               </div>
             </a>
 
+            {/* ─── CATEGORY: MARKETING & META ADS ─── */}
+            <div className="pf-category">
+              <h4>📊 Marketing & Meta Ads</h4>
+              <p>Performance campaigns, audits and lead generation systems</p>
+            </div>
+
             {/* META ADS REPORT */}
-            <a href="https://drive.google.com/file/d/16dHEoRCJvwYv6YEa9Qe8a7HSuxVc_iTT/view?usp=sharing" target="_blank" className="pf-card reveal delay-2">
+            <a href="https://drive.google.com/file/d/16dHEoRCJvwYv6YEa9Qe8a7HSuxVc_iTT/view?usp=sharing" target="_blank" className="pf-card">
               <div className="pf-visual visual-report">
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -637,8 +654,14 @@ export default function AgencyPage() {
               </div>
             </a>
 
+            {/* ─── CATEGORY: TELEGRAM CHANNEL FUNNELS ─── */}
+            <div className="pf-category">
+              <h4>📲 Telegram Channel Funnels</h4>
+              <p>Conversion-optimized landing pages turning cold traffic into loyal community members</p>
+            </div>
+
             {/* TELEGRAM PAGES */}
-            <a href="https://vip-free-tennis-page.vercel.app/" target="_blank" className="pf-card reveal delay-3">
+            <a href="https://vip-free-tennis-page.vercel.app/" target="_blank" className="pf-card">
               <div className="pf-visual visual-telegram">
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -655,7 +678,7 @@ export default function AgencyPage() {
               </div>
             </a>
 
-            <a href="https://tennis-king-jackpot.vercel.app/" target="_blank" className="pf-card reveal delay-1">
+            <a href="https://tennis-king-jackpot.vercel.app/" target="_blank" className="pf-card">
               <div className="pf-visual visual-telegram" style={{background: 'linear-gradient(135deg, #ffd700, #ff8c00)'}}>
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -672,7 +695,7 @@ export default function AgencyPage() {
               </div>
             </a>
 
-            <a href="https://cricket-king-rahul.vercel.app/" target="_blank" className="pf-card reveal delay-2">
+            <a href="https://cricket-king-rahul.vercel.app/" target="_blank" className="pf-card">
               <div className="pf-visual visual-telegram" style={{background: 'linear-gradient(135deg, #ff4757, #c0392b)'}}>
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -689,7 +712,7 @@ export default function AgencyPage() {
               </div>
             </a>
 
-            <a href="https://hari-cricket.vercel.app/" target="_blank" className="pf-card reveal delay-3">
+            <a href="https://hari-cricket.vercel.app/" target="_blank" className="pf-card">
               <div className="pf-visual visual-telegram" style={{background: 'linear-gradient(135deg, #3742fa, #2f3542)'}}>
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -706,7 +729,7 @@ export default function AgencyPage() {
               </div>
             </a>
 
-            <a href="https://rahul-silk.vercel.app/" target="_blank" className="pf-card reveal delay-1">
+            <a href="https://rahul-silk.vercel.app/" target="_blank" className="pf-card">
               <div className="pf-visual visual-telegram" style={{background: 'linear-gradient(135deg, #a55eea, #8854d0)'}}>
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -723,7 +746,13 @@ export default function AgencyPage() {
               </div>
             </a>
 
-            <a href="https://whatsapp-crm-backend-one.vercel.app" target="_blank" className="pf-card reveal delay-2">
+            {/* ─── CATEGORY: CUSTOM DEVELOPMENT ─── */}
+            <div className="pf-category">
+              <h4>⚙️ Custom Development</h4>
+              <p>Full-stack platforms and APIs engineered for scale</p>
+            </div>
+
+            <a href="https://whatsapp-crm-backend-one.vercel.app" target="_blank" className="pf-card">
               <div className="pf-visual visual-crm" style={{background: 'linear-gradient(135deg, #4d9fff, #2d7dd2)'}}>
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -741,7 +770,7 @@ export default function AgencyPage() {
               </div>
             </a>
 
-            <a href="https://gplesports.vercel.app/" target="_blank" className="pf-card reveal delay-3">
+            <a href="https://gplesports.vercel.app/" target="_blank" className="pf-card">
               <div className="pf-visual visual-gymflow" style={{background: 'linear-gradient(135deg, #ff6b35, #f7931e)'}}>
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
