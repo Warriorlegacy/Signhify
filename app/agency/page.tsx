@@ -435,8 +435,13 @@ export default function AgencyPage() {
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
         /* Portfolio Category Dividers */
+        .pf-category { grid-column: 1 / -1; margin: 3rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
         .pf-category h4 { font-family: var(--font-heading); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-1); margin-bottom: 0.5rem; }
         .pf-category p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 0; }
+        
+        /* Force Visibility Override */
+        .pf-card, .pf-category { opacity: 1 !important; transform: none !important; display: flex !important; }
+        .pf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; opacity: 1 !important; visibility: visible !important; }
 
         /* Responsive */
         @media(max-width: 1024px) {
@@ -680,6 +685,24 @@ export default function AgencyPage() {
                   <span className="pf-tag">ROAS</span>
                 </div>
                 <div className="pf-link-btn">View Full Report <span>→</span></div>
+              </div>
+            </a>
+
+            {/* ADDED 13th ITEM: META ADS SCALE */}
+            <a href="https://signhify.com" target="_blank" className="pf-card">
+              <div className="pf-visual visual-report" style={{background: 'linear-gradient(135deg, #00ff87, #00a3ff)'}}>
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(0, 255, 135, 0.2)', borderColor: '#00ff87'}}>Lead Funnel</div>
+              </div>
+              <div className="pf-content">
+                <h3>Real Estate Lead Machine</h3>
+                <p>High-converting lead generation funnel for luxury real estate. Integrated with automated CRM follow-ups and appointment booking.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Lead Gen</span>
+                  <span className="pf-tag">Automation</span>
+                </div>
+                <div className="pf-link-btn">View Case Study <span>→</span></div>
               </div>
             </a>
 
