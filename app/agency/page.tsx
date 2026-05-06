@@ -301,19 +301,20 @@ export default function AgencyPage() {
         .glass-card p { color: var(--text-dim); font-size: 1rem; line-height: 1.7; }
 
         /* Portfolio Grid */
-        .pf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 2rem; }
+        .pf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
         .pf-card { 
           background: var(--surface); border: 1px solid var(--border); border-radius: 24px; overflow: hidden;
           display: flex; flex-direction: column; text-decoration: none; color: var(--text); transition: all 0.5s;
-          position: relative;
+          position: relative; opacity: 1 !important; transform: none;
         }
+        .pf-category { grid-column: 1 / -1; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); display: block !important; opacity: 1 !important; transform: none !important; }
         .pf-card::before {
           content: ''; position: absolute; inset: 0; pointer-events: none;
           background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.05), transparent 40%);
           opacity: 0; transition: opacity 0.5s; z-index: 3;
         }
         .pf-card:hover::before { opacity: 1; }
-        .pf-card:hover { transform: translateY(-10px); border-color: var(--accent-3); box-shadow: 0 20px 50px rgba(0, 229, 255, 0.15); }
+        .pf-card:hover { transform: translateY(-10px) !important; border-color: var(--accent-3); box-shadow: 0 20px 50px rgba(0, 229, 255, 0.15); }
         
         .pf-visual { height: 260px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
         .pf-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(3,3,5,0.95)); z-index: 1; }
@@ -416,7 +417,6 @@ export default function AgencyPage() {
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
         /* Portfolio Category Dividers */
-        .pf-category { grid-column: 1 / -1; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--border); }
         .pf-category h4 { font-family: var(--font-heading); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-1); margin-bottom: 0.5rem; }
         .pf-category p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 0; }
 
@@ -556,7 +556,7 @@ export default function AgencyPage() {
           
           <div className="pf-grid">
             {/* GIGMIND (NEW) */}
-            <a href="https://gigmind-gamma.vercel.app/" target="_blank" className="pf-card pf-featured reveal">
+            <a href="https://gigmind-gamma.vercel.app/" target="_blank" className="pf-card pf-featured">
               <div className="pf-visual visual-gigmind">
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -575,7 +575,7 @@ export default function AgencyPage() {
             </a>
 
             {/* TUITIONTRACK (NEW) */}
-            <a href="https://tuitiontrack-app.vercel.app/" target="_blank" className="pf-card reveal delay-1">
+            <a href="https://tuitiontrack-app.vercel.app/" target="_blank" className="pf-card">
               <div className="pf-visual visual-tuition">
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -594,7 +594,7 @@ export default function AgencyPage() {
             </a>
 
             {/* GYMFLOW */}
-            <a href="https://gymflow-saas.vercel.app/" target="_blank" className="pf-card reveal delay-2">
+            <a href="https://gymflow-saas.vercel.app/" target="_blank" className="pf-card">
               <div className="pf-visual visual-gymflow">
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
@@ -612,7 +612,7 @@ export default function AgencyPage() {
             </a>
 
             {/* WHATSAPP CRM */}
-            <a href="https://frontend-omega-eight-zbfx853zu2.vercel.app" target="_blank" className="pf-card reveal delay-1">
+            <a href="https://frontend-omega-eight-zbfx853zu2.vercel.app" target="_blank" className="pf-card">
               <div className="pf-visual visual-crm">
                 <div className="shape"></div>
                 <div className="pf-overlay"></div>
