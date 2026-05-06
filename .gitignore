@@ -42,3 +42,7 @@ next-env.d.ts
 
 # OS
 Thumbs.db
+
+# Secrets
+.claude/
+claude-openrouter.ps1
