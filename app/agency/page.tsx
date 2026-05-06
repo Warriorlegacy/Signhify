@@ -1,19 +1,24 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 export default function AgencyPage() {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
   useEffect(() => {
+    // Chatbot responses
     const chatbotResponses: Record<string, string> = {
       hello: 'Hi! How can I help you today?',
       hi: 'Hello! Welcome to Signhify. What would you like to know?',
-      services: 'We offer: Meta Ads, Google Ads, Lead Funnels, Telegram Marketing, Web Development, AI Analytics. Which interests you?',
-      pricing: 'Our starting prices: Digital Marketing ₹9,999/mo, Web Dev ₹7,999, SEO ₹8,999/mo, Design ₹5,999. Want details?',
-      contact: 'You can email us at piyushrajsingh092@gmail.com or WhatsApp +91 62024 42690',
+      services: 'We offer: Meta Ads, Google Ads, Lead Funnels, Web Dev, SaaS Development. Which interests you?',
+      pricing: 'Our starting prices: Digital Marketing ₹9,999/mo, Web Dev ₹7,999, SEO ₹8,999/mo, Design ₹5,999.',
+      contact: 'Email us at piyushrajsingh092@gmail.com or WhatsApp +91 62024 42690',
       whatsapp: 'Visit https://wa.me/916202442690 to connect on WhatsApp',
       email: 'Our email is piyushrajsingh092@gmail.com',
-      gymflow: 'Gymflow is our AI-powered gym management SaaS! It handles members, payments, plans & analytics. Check it out: https://gymflow-saas.vercel.app/',
-      saas: 'We build premium SaaS products! Gymflow is an example - gym management software with multi-tenant architecture & real-time dashboards. Want to build your own SaaS?',
-      default: 'Thanks for reaching out! For specific questions, email us at piyushrajsingh092@gmail.com or call +91 62024 42690. We\'re happy to help!',
+      saas: 'We build premium SaaS! Check out GigMind, TuitionTrack, or Gymflow in our portfolio.',
+      gigmind: 'GigMind is an AI-powered service marketplace for India. Tell our AI what you need, and we handle the rest!',
+      tuitiontrack: 'TuitionTrack is a complete SaaS for tutors to manage operations, progress, and parent visibility.',
+      default: 'Thanks for reaching out! For specific questions, email us at piyushrajsingh092@gmail.com or WhatsApp +91 62024 42690.',
     }
 
     function toggleChatbot() {
@@ -37,21 +42,16 @@ export default function AgencyPage() {
       input.value = ''
     }
 
-    // Theme toggle
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'))
-        btn.classList.add('active')
-        document.documentElement.setAttribute('data-theme', (btn as HTMLElement).dataset.theme || 'dark')
-        localStorage.setItem('theme', (btn as HTMLElement).dataset.theme || 'dark')
-      })
+    const chatToggle = document.querySelector('.chatbot-toggle')
+    chatToggle?.addEventListener('click', toggleChatbot)
+    const chatClose = document.querySelector('.chatbot-close')
+    chatClose?.addEventListener('click', toggleChatbot)
+    const chatSendBtn = document.querySelector('.chatbot-input button')
+    chatSendBtn?.addEventListener('click', sendMessage)
+    const chatInput = document.getElementById('chatInput')
+    chatInput?.addEventListener('keypress', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') sendMessage()
     })
-    if (localStorage.getItem('theme')) {
-      document.documentElement.setAttribute('data-theme', localStorage.getItem('theme')!)
-      document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.toggle('active', (btn as HTMLElement).dataset.theme === localStorage.getItem('theme'))
-      })
-    }
 
     // Lead form
     const form = document.getElementById('leadForm') as HTMLFormElement
@@ -64,719 +64,658 @@ export default function AgencyPage() {
         phone: fd.get('phone'),
         message: fd.get('message'),
       }
-      const waMsg = `New Lead from Signhify Site!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nMessage: ${data.message}`
+      const waMsg = `New Lead from Signhify (Premium)!\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nMessage: ${data.message}`
       window.open(`https://wa.me/916202442690?text=${encodeURIComponent(waMsg)}`, '_blank')
       alert('Thanks! Redirecting to WhatsApp to complete your inquiry.')
       form.reset()
     })
 
-    // Cursor glow
+    // Cursor tracking
+    const cursor = document.getElementById('cursor-glow')
     document.addEventListener('mousemove', (e) => {
-      const glow = document.getElementById('cursor-glow')
-      if (glow) {
-        glow.style.left = e.clientX + 'px'
-        glow.style.top = e.clientY + 'px'
+      if (cursor) {
+        cursor.style.left = e.clientX + 'px'
+        cursor.style.top = e.clientY + 'px'
       }
     })
 
-    // Scroll reveal
+    // Dynamic Card Glow (Glassmorphism highlight)
+    const handleMouseMove = (e: MouseEvent) => {
+      const target = e.currentTarget as HTMLElement;
+      const rect = target.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      target.style.setProperty("--mouse-x", `${x}px`);
+      target.style.setProperty("--mouse-y", `${y}px`);
+    };
+
+    document.querySelectorAll('.glass-card, .pf-card').forEach((card) => {
+      (card as HTMLElement).addEventListener('mousemove', handleMouseMove);
+    });
+
+    // Scroll Reveal Observer
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
+          entry.target.classList.add('active')
           obs.unobserve(entry.target)
         }
       })
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
+    
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        e.preventDefault()
-        const target = document.querySelector(a.getAttribute('href') || '')
-        if (target) target.scrollIntoView({ behavior: 'smooth' })
-      })
-    })
-
-    // Nav bg on scroll
-    const nav = document.querySelector('nav') as HTMLElement
+    // Navbar Scroll Effect
+    const nav = document.querySelector('nav')
     window.addEventListener('scroll', () => {
-      const theme = document.documentElement.getAttribute('data-theme')
-      if (nav) {
-        nav.style.background = window.scrollY > 50
-          ? (theme === 'light' ? 'rgba(248,249,252,.95)' : 'rgba(6,6,12,.92)')
-          : (theme === 'light' ? 'rgba(248,249,252,.85)' : 'rgba(6,6,12,.75)')
-      }
+      if (window.scrollY > 50) nav?.classList.add('scrolled')
+      else nav?.classList.remove('scrolled')
     })
 
-    // Chatbot event listeners
-    const chatToggle = document.querySelector('.chatbot-toggle')
-    chatToggle?.addEventListener('click', toggleChatbot)
-    const chatClose = document.querySelector('.chatbot-close')
-    chatClose?.addEventListener('click', toggleChatbot)
-    const chatSendBtn = document.querySelector('.chatbot-input button')
-    chatSendBtn?.addEventListener('click', sendMessage)
-    const chatInput = document.getElementById('chatInput')
-    chatInput?.addEventListener('keypress', (e) => {
-      if ((e as KeyboardEvent).key === 'Enter') sendMessage()
-    })
-
-    // Mobile nav
-    const hamburger = document.querySelector('.hamburger')
-    const navLinks = document.querySelector('.nav-links') as HTMLElement
-    hamburger?.addEventListener('click', () => {
-      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex'
-    })
+    return () => {
+      document.querySelectorAll('.glass-card, .pf-card').forEach((card) => {
+        (card as HTMLElement).removeEventListener('mousemove', handleMouseMove);
+      });
+    };
   }, [])
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: `
-        :root{
-            --bg:#06060c;--surface:#0d0d18;--surface-2:#12121f;--surface-3:#181828;
-            --border:rgba(255,255,255,.06);--border-hover:rgba(255,255,255,.12);
-            --text:#eeeef5;--text-dim:#8888a0;--text-muted:#555570;
-            --green:#00ff87;--green-dim:rgba(0,255,135,.15);--green-glow:rgba(0,255,135,.25);
-            --blue:#4d9fff;--blue-dim:rgba(77,159,255,.12);
-            --purple:#a855f7;--purple-dim:rgba(168,85,247,.12);
-            --orange:#ff6b35;--orange-dim:rgba(255,107,53,.12);
-            --radius:16px;--max:1200px;
-            --nav-bg:rgba(6,6,12,.75);--nav-blur:24px;
-        }
-        [data-theme="light"]{
-            --bg:#f8f9fc;--surface:#fff;--surface-2:#f0f2f8;--surface-3:#e8ecf4;
-            --border:rgba(0,0,0,.06);--border-hover:rgba(0,0,0,.12);
-            --text:#1a1a2e;--text-dim:#4a4a6a;--text-muted:#8888a0;
-            --nav-bg:rgba(248,249,252,.85);
-        }
-        *{margin:0;padding:0;box-sizing:border-box}
-        html{scroll-behavior:smooth;font-size:16px}
-        body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;transition:background .3s,color .3s}
-        h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.15}
-        a{text-decoration:none;color:inherit}
-        img{max-width:100%;display:block}
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap');
 
-        .theme-toggle{background:var(--surface-2);border:1px solid var(--border);border-radius:50px;padding:.3rem;cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:all .3s}
-        .theme-toggle:hover{border-color:var(--border-hover)}
-        .theme-btn{width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .3s;background:transparent;color:var(--text-muted)}
-        .theme-btn.active{background:var(--green);color:#000;box-shadow:0 0 12px var(--green-glow)}
-
-        body::before{content:'';position:fixed;inset:0;opacity:.03;pointer-events:none;z-index:9999;
-            background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-
-        .ambient{position:fixed;inset:0;pointer-events:none;z-index:0;
-            background:radial-gradient(ellipse 800px 600px at 20% 10%,rgba(0,255,135,.06),transparent),
-                       radial-gradient(ellipse 600px 500px at 80% 80%,rgba(77,159,255,.04),transparent),
-                       radial-gradient(ellipse 500px 400px at 60% 30%,rgba(168,85,247,.03),transparent)}
-        [data-theme="light"] .ambient{background:radial-gradient(ellipse 800px 600px at 20% 10%,rgba(0,255,135,.04),transparent),
-                       radial-gradient(ellipse 600px 500px at 80% 80%,rgba(77,159,255,.03),transparent),
-                       radial-gradient(ellipse 500px 400px at 60% 30%,rgba(168,85,247,.02),transparent)}
-
-        #cursor-glow{position:fixed;width:600px;height:600px;pointer-events:none;z-index:1;transform:translate(-50%,-50%);
-            background:radial-gradient(circle,rgba(0,255,135,.04),transparent 70%);transition:opacity .3s}
-
-        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.75rem 1.5rem;
-            background:rgba(6,6,12,.75);backdrop-filter:blur(24px) saturate(1.5);border-bottom:1px solid var(--border)}
-        .nav-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-        .nav-brand{display:flex;align-items:center;gap:.6rem;font-family:'Space Grotesk';font-weight:700;font-size:1.1rem}
-        .nav-brand img{height:32px;width:32px;border-radius:8px;object-fit:contain}
-        .nav-brand span{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .nav-links{display:flex;align-items:center;gap:2rem}
-        .nav-links a{color:var(--text-dim);font-size:.875rem;font-weight:500;transition:color .2s}
-        .nav-links a:hover{color:var(--text)}
-        .nav-cta{background:var(--green)!important;color:#000!important;padding:.55rem 1.2rem;border-radius:99px;font-weight:700;font-size:.85rem;transition:all .3s}
-        .nav-cta:hover{box-shadow:0 0 30px var(--green-glow);transform:translateY(-1px)}
-        .hamburger{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
-
-        .container{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
-        section{padding:6rem 1.5rem;position:relative;z-index:2}
-
-        .hero{min-height:100vh;display:flex;align-items:center;padding-top:5rem;position:relative;overflow:hidden}
-        .hero-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-        .hero-left{animation:fadeUp .8s ease forwards}
-        .hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:99px;font-size:.8rem;font-weight:600;
-            background:var(--green-dim);border:1px solid rgba(0,255,135,.2);color:var(--green);margin-bottom:1.5rem}
-        .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
-        @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-        .hero h1{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;margin-bottom:1.2rem;letter-spacing:-.02em}
-        .hero h1 .highlight{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .hero-desc{font-size:1.15rem;color:var(--text-dim);max-width:520px;margin-bottom:2rem;line-height:1.8}
-        .hero-stats{display:flex;gap:2rem;margin-bottom:2.5rem}
-        .hero-stat{text-align:center}
-        .hero-stat .val{font-family:'Space Grotesk';font-size:1.6rem;font-weight:800;color:var(--green)}
-        .hero-stat .lab{font-size:.75rem;color:var(--text-muted);margin-top:.15rem}
-        .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
-        .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;border-radius:99px;font-weight:700;font-size:.95rem;transition:all .3s;border:none;cursor:pointer}
-        .btn-primary{background:linear-gradient(135deg,var(--green),#00cc6a);color:#000;box-shadow:0 4px 30px var(--green-glow)}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(0,255,135,.4)}
-        .btn-outline{background:transparent;color:var(--text);border:1px solid var(--border-hover)}
-        .btn-outline:hover{border-color:var(--green);color:var(--green)}
-        .hero-right{animation:fadeUp .8s .2s ease both}
-        .hero-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden}
-        .hero-card::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;
-            background:radial-gradient(circle,rgba(0,255,135,.08),transparent 70%)}
-        .hero-card-title{font-size:.85rem;color:var(--text-muted);margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:.1em}
-        .metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-        .metric{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.2rem;transition:all .3s;cursor:default}
-        .metric:hover{border-color:rgba(0,255,135,.3);transform:translateY(-3px);box-shadow:0 10px 40px rgba(0,0,0,.3)}
-        .metric .num{font-family:'Space Grotesk';font-size:1.5rem;font-weight:800;margin-bottom:.2rem}
-        .metric .num.g{color:var(--green)}.metric .num.b{color:var(--blue)}.metric .num.p{color:var(--purple)}.metric .num.o{color:var(--orange)}
-        .metric .lbl{font-size:.78rem;color:var(--text-muted)}
-        @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-
-        .marquee-section{padding:3rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
-        .marquee{display:flex;gap:3rem;animation:marquee 30s linear infinite}
-        .marquee-item{white-space:nowrap;font-size:.85rem;color:var(--text-muted);font-weight:500;display:flex;align-items:center;gap:.5rem}
-        .marquee-item::before{content:'✦';color:var(--green)}
-        @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-        .sec-head{text-align:center;margin-bottom:4rem}
-        .sec-head .tag{display:inline-block;padding:.35rem 1rem;border-radius:99px;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem}
-        .sec-head .tag.green{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,255,135,.2)}
-        .sec-head .tag.blue{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,159,255,.2)}
-        .sec-head .tag.purple{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(168,85,247,.2)}
-        .sec-head .tag.orange{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(255,107,53,.2)}
-        .sec-head h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:.8rem;letter-spacing:-.02em}
-        .sec-head h2 .hl{background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .sec-head p{color:var(--text-dim);font-size:1.1rem;max-width:600px;margin:0 auto}
-
-        .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-        .svc{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all .4s cubic-bezier(.175,.885,.32,1.275);position:relative;overflow:hidden}
-        .svc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--blue));transform:scaleX(0);transition:transform .4s;transform-origin:left}
-        .svc:hover::after{transform:scaleX(1)}
-        .svc:hover{border-color:rgba(0,255,135,.2);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
-        .svc-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
-        .svc-icon.g{background:var(--green-dim)}.svc-icon.b{background:var(--blue-dim)}.svc-icon.p{background:var(--purple-dim)}.svc-icon.o{background:var(--orange-dim)}
-        .svc h3{font-size:1.1rem;font-weight:700;margin-bottom:.6rem}
-        .svc p{color:var(--text-dim);font-size:.88rem;line-height:1.7}
-
-        .portfolio-cat{margin-bottom:3rem}
-        .portfolio-cat .cat-title{font-size:1.3rem;font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
-        .portfolio-cat .cat-sub{color:var(--text-dim);font-size:.9rem;margin-bottom:1.5rem}
-        .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
-        .pf-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all .4s;display:block}
-        .pf-card:hover{border-color:rgba(0,255,135,.2);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
-        .pf-preview{height:140px;display:flex;align-items:center;justify-content:center;position:relative;font-size:2.8rem}
-        .pf-preview::after{content:attr(data-tag);position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);font-size:.65rem;font-weight:700;
-            background:rgba(0,0,0,.6);padding:.2rem .8rem;border-radius:99px;backdrop-filter:blur(8px);text-transform:uppercase;letter-spacing:.06em}
-        .pf-body{padding:1.2rem 1.5rem}
-        .pf-body h3{font-size:1rem;font-weight:700;margin-bottom:.4rem;
-            background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .pf-body p{color:var(--text-dim);font-size:.82rem;line-height:1.6;margin-bottom:.8rem}
-        .pf-link{font-size:.82rem;font-weight:700;color:var(--green);display:inline-flex;align-items:center;gap:.3rem;transition:gap .3s}
-        .pf-card:hover .pf-link{gap:.6rem}
-        .pf-featured{border-color:rgba(168,85,247,.25)!important;position:relative;overflow:hidden}
-        .pf-featured::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,var(--green),var(--blue),var(--purple));z-index:-1;opacity:0;transition:opacity .4s}
-        .pf-featured:hover::before{opacity:1}
-        .pf-featured .pf-preview{height:160px}
-        .pf-featured .pf-body h3{font-size:1.1rem;background:linear-gradient(135deg,#1877f2,var(--purple))!important;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .pf-featured .pf-body p{font-size:.88rem}
-        .pf-featured:hover{box-shadow:0 0 60px rgba(168,85,247,.15),0 20px 60px rgba(0,0,0,.4)}
-        .pf-featured::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--purple));transform:scaleX(0);transition:transform .4s;transform-origin:left}
-        .pf-featured:hover::after{transform:scaleX(1)}
-
-        .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
-        .price-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all .4s;display:flex;flex-direction:column;position:relative;overflow:hidden}
-        .price-card:hover{border-color:rgba(77,159,255,.3);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
-        .price-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--green));transform:scaleX(0);transition:transform .4s;transform-origin:left}
-        .price-card:hover::after{transform:scaleX(1)}
-        .price-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
-        .price-icon.g{background:var(--green-dim);color:var(--green)}
-        .price-icon.b{background:var(--blue-dim);color:var(--blue)}
-        .price-icon.p{background:var(--purple-dim);color:var(--purple)}
-        .price-icon.o{background:var(--orange-dim);color:var(--orange)}
-        .price-card h3{font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
-        .price-card .price{font-family:'Space Grotesk';font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:.5rem}
-        .price-card .price span{font-size:.9rem;font-weight:500;color:var(--text-muted)}
-        .price-card p{color:var(--text-dim);font-size:.85rem;line-height:1.6;margin-bottom:1.5rem;flex-grow:1}
-        .price-card .btn{width:100%;justify-content:center;padding:.75rem 1rem}
-
-        .profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-        .prf{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all .3s}
-        .prf:hover{border-color:rgba(77,159,255,.2);transform:translateY(-4px)}
-        .prf-icon{font-size:1.8rem;margin-bottom:1rem}
-        .prf h3{font-size:1.05rem;font-weight:700;margin-bottom:.6rem}
-        .prf p{color:var(--text-dim);font-size:.85rem;line-height:1.7}
-
-        .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-        .ctc{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;text-align:center;transition:all .3s;display:block}
-        .ctc:hover{border-color:rgba(0,255,135,.3);transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,.3)}
-        .ctc-icon{width:56px;height:56px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:1.4rem;
-            background:var(--green-dim);border:1px solid rgba(0,255,135,.15)}
-        .ctc h3{font-size:1rem;font-weight:700;margin-bottom:.3rem}
-        .ctc p{color:var(--green);font-size:.9rem;font-weight:600}
-
-        footer{padding:2.5rem 1.5rem;text-align:center;border-top:1px solid var(--border);color:var(--text-muted);font-size:.82rem;position:relative;z-index:2}
-
-        .reveal{opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.22,1,.36,1)}
-        .reveal.visible{opacity:1;transform:translateY(0)}
-        .reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}
-        .reveal-delay-4{transition-delay:.35s}.reveal-delay-5{transition-delay:.4s}
-
-        @media(max-width:960px){
-            .hero-inner{grid-template-columns:1fr;text-align:center}
-            .hero-desc{margin:0 auto 2rem}
-            .hero-stats{justify-content:center}
-            .hero-ctas{justify-content:center}
-            .services-grid,.profile-grid,.contact-grid,.pricing-grid{grid-template-columns:1fr}
-            .nav-links{display:none}
-            .hamburger{display:block}
-            .metric-grid{grid-template-columns:1fr 1fr}
-            .portfolio-grid{grid-template-columns:1fr}
-            .pf-gymflow{grid-column:span 1}
-            .gymflow-btns{flex-direction:column}
-            .cta-btns{flex-direction:column;align-items:center}
-            .lead-form{margin:2rem 1rem}
-        }
-        @media(max-width:600px){
-            .hero h1{font-size:2rem}
-            .services-grid{grid-template-columns:1fr}
-            .chatbot{bottom:1rem;right:1rem}
-            .chatbot-window{width:300px;height:400px}
-            .cta-section{padding:3rem 1rem}
-            .cta-btns .btn{width:100%;justify-content:center}
+        :root {
+          --bg: #030305;
+          --bg-gradient: radial-gradient(circle at 50% -20%, rgba(20, 10, 45, 0.8) 0%, #030305 50%);
+          --surface: rgba(255, 255, 255, 0.015);
+          --border: rgba(255, 255, 255, 0.05);
+          --border-hover: rgba(255, 255, 255, 0.15);
+          --text: #f0f0f5;
+          --text-dim: #9ca3af;
+          --accent-1: #00ff87; /* Neon Green */
+          --accent-2: #a855f7; /* Deep Violet */
+          --accent-3: #00e5ff; /* Cyan */
+          --font-heading: 'Syne', sans-serif;
+          --font-body: 'Outfit', sans-serif;
+          --max: 1280px;
         }
 
-        .tilt{transform-style:preserve-3d;perspective:1000px}
-        .tilt-inner{transition:transform .3s}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { 
+          font-family: var(--font-body); 
+          background: var(--bg); 
+          background-image: var(--bg-gradient);
+          color: var(--text); 
+          line-height: 1.6; 
+          overflow-x: hidden; 
+        }
 
-        .pf-gymflow{grid-column:span 2;position:relative;background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(255,159,28,.05));border-color:rgba(255,107,53,.25)!important}
-        .pf-gymflow::before{content:'';position:absolute;inset:-2px;border-radius:22px;background:linear-gradient(135deg,var(--orange),#ffbf69,var(--green));z-index:-1;opacity:0;transition:opacity .4s}
-        .pf-gymflow:hover::before{opacity:1}
-        .pf-gymflow .pf-preview{height:200px;background:linear-gradient(135deg,#ff6b35,#ff9f1c)!important}
-        .gymflow-preview-icons{font-size:3rem;display:flex;gap:1rem;justify-content:center;align-items:center}
-        .gymflow-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin:.8rem 0}
-        .gymflow-tag{background:var(--surface-2);border:1px solid var(--border);padding:.3rem .8rem;border-radius:99px;font-size:.72rem;font-weight:600;color:var(--text-dim)}
-        .gymflow-metrics{display:flex;gap:1rem;margin:1rem 0;flex-wrap:wrap}
-        .gymflow-metric{background:var(--surface-2);border:1px solid rgba(255,107,53,.15);padding:.5rem 1rem;border-radius:10px}
-        .gymflow-metric .gm-num{font-size:.8rem;font-weight:600;color:var(--orange)}
-        .gymflow-btns{display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap}
-        .pf-gymflow:hover{box-shadow:0 0 80px rgba(255,107,53,.2),0 20px 60px rgba(0,0,0,.4)}
+        ::selection { background: var(--accent-1); color: #000; }
 
-        .cta-section{padding:4rem 1.5rem;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-        .cta-inner{max-width:var(--max);margin:0 auto;text-align:center}
-        .cta-inner h2{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:1rem}
-        .cta-inner p{color:var(--text-dim);max-width:500px;margin:0 auto 2rem}
-        .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+        /* Typography */
+        h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.1; letter-spacing: -0.02em; }
+        .text-gradient {
+          background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-alt {
+          background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
 
-        .lead-form{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;max-width:500px;margin:2rem auto}
-        .lead-form h3{font-size:1.3rem;margin-bottom:1.5rem;text-align:center}
-        .lead-form input,.lead-form textarea{width:100%;padding:1rem;border-radius:12px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-family:inherit;font-size:.95rem;margin-bottom:1rem;transition:border-color .3s}
-        .lead-form input:focus,.lead-form textarea:focus{outline:none;border-color:var(--green)}
-        .lead-form textarea{resize:vertical;min-height:100px}
-        .lead-form .btn{width:100%;justify-content:center}
+        /* Ambient Backgrounds */
+        .mesh-bg {
+          position: fixed; inset: 0; z-index: -2; pointer-events: none;
+          background-image: 
+            radial-gradient(circle at 15% 50%, rgba(0, 255, 135, 0.04) 0%, transparent 40%),
+            radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.05) 0%, transparent 40%);
+          filter: blur(60px);
+        }
+        .noise {
+          position: fixed; inset: 0; z-index: -1; opacity: 0.025; pointer-events: none;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
 
-        .chatbot{position:fixed;bottom:2rem;right:2rem;z-index:1000}
-        .chatbot-toggle{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));border:none;cursor:pointer;font-size:1.5rem;box-shadow:0 10px 40px rgba(0,255,135,.3);transition:transform .3s;display:flex;align-items:center;justify-content:center}
-        .chatbot-toggle:hover{transform:scale(1.1)}
-        .chatbot-window{position:absolute;bottom:80px;right:0;width:350px;height:450px;background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:none;flex-direction:column;overflow:hidden}
-        .chatbot.open .chatbot-window{display:flex}
-        .chatbot-header{background:linear-gradient(135deg,var(--green),var(--blue));padding:1rem;color:#000;font-weight:700;display:flex;justify-content:space-between;align-items:center}
-        .chatbot-close{background:none;border:none;color:#000;font-size:1.2rem;cursor:pointer}
-        .chatbot-messages{flex:1;padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:.8rem}
-        .chat-msg{padding:.8rem 1rem;border-radius:12px;max-width:85%;font-size:.9rem}
-        .chat-msg.bot{background:var(--surface-2);align-self:flex-start}
-        .chat-msg.user{background:var(--green-dim);color:var(--text);align-self:flex-end}
-        .chatbot-input{padding:1rem;border-top:1px solid var(--border);display:flex;gap:.5rem}
-        .chatbot-input input{flex:1;padding:.8rem;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);color:var(--text)}
-        .chatbot-input button{background:var(--green);border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:1rem}
+        /* Cursor Glow */
+        #cursor-glow {
+          position: fixed; width: 500px; height: 500px; border-radius: 50%; pointer-events: none; z-index: 0;
+          transform: translate(-50%, -50%);
+          background: radial-gradient(circle, rgba(0, 255, 135, 0.03) 0%, transparent 60%);
+          transition: width 0.3s, height 0.3s;
+        }
+
+        /* Navigation */
+        nav {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 2rem;
+          background: rgba(3, 3, 5, 0.4); backdrop-filter: blur(24px) saturate(1.5);
+          border-bottom: 1px solid transparent; transition: all 0.4s ease;
+        }
+        nav.scrolled { padding: 0.8rem 2rem; background: rgba(3, 3, 5, 0.8); border-bottom-color: var(--border); }
+        .nav-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .nav-brand { display: flex; align-items: center; gap: 0.8rem; font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -0.03em; }
+        .nav-brand img { height: 38px; width: 38px; border-radius: 10px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .nav-brand:hover img { transform: scale(1.1) rotate(-5deg); box-shadow: 0 0 20px rgba(0, 255, 135, 0.4); }
+        
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; position: relative; }
+        .nav-links a:not(.nav-cta)::after {
+          content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 2px;
+          background: var(--accent-1); transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
+        
+        .nav-cta {
+          background: #fff; color: #000 !important; padding: 0.6rem 1.4rem; border-radius: 100px; font-weight: 700;
+          transition: all 0.3s !important; border: 1px solid transparent;
+        }
+        .nav-cta:hover { background: transparent; color: var(--accent-1) !important; border-color: var(--accent-1); box-shadow: 0 0 20px rgba(0, 255, 135, 0.2); }
+        .hamburger { display: none; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
+
+        /* Buttons */
+        .btn {
+          display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+          padding: 1.1rem 2.2rem; border-radius: 100px; font-family: var(--font-heading); font-weight: 700; font-size: 1rem;
+          text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: none;
+        }
+        .btn-glow {
+          background: linear-gradient(135deg, var(--accent-1), #00cc6a); color: #000;
+          box-shadow: 0 10px 30px -10px rgba(0, 255, 135, 0.5); position: relative; overflow: hidden;
+        }
+        .btn-glow::after {
+          content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+          transform: skewX(-20deg); transition: left 0.5s ease;
+        }
+        .btn-glow:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 40px -10px rgba(0, 255, 135, 0.7); color: #000; }
+        .btn-glow:hover::after { left: 200%; }
+
+        .btn-glass {
+          background: rgba(255,255,255,0.03); color: #fff; border: 1px solid var(--border); backdrop-filter: blur(10px);
+        }
+        .btn-glass:hover { background: rgba(255,255,255,0.08); border-color: var(--accent-3); transform: translateY(-3px); color: var(--accent-3); box-shadow: 0 10px 30px -10px rgba(0, 229, 255, 0.3); }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; padding: 8rem 2rem 4rem; z-index: 1; text-align: center; overflow: hidden; }
+        .hero::before {
+          content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+          width: 800px; height: 800px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 60%); z-index: -1;
+        }
+        .hero-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; animation: fadeUp 1s ease forwards; }
+        
+        .badge {
+          display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.5rem 1.2rem; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
+          background: rgba(0, 255, 135, 0.05); border: 1px solid rgba(0, 255, 135, 0.15); color: var(--accent-1); margin-bottom: 2.5rem;
+          backdrop-filter: blur(10px);
+        }
+        .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-1); box-shadow: 0 0 12px var(--accent-1); animation: pulse 2s infinite; }
+        
+        .hero h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); margin-bottom: 1.5rem; text-transform: uppercase; line-height: 0.95; }
+        .hero p { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-dim); max-width: 650px; margin-bottom: 3rem; line-height: 1.7; font-weight: 300; }
+        .hero-btns { display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center; margin-bottom: 4rem; }
+
+        .hero-stats { display: flex; gap: 4rem; justify-content: center; border-top: 1px solid var(--border); padding-top: 3rem; width: 100%; max-width: 800px; }
+        .stat-item { display: flex; flex-direction: column; gap: 0.2rem; }
+        .stat-val { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: var(--accent-1); }
+        .stat-lbl { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 500; }
+
+        /* Sections */
+        section { padding: 8rem 2rem; position: relative; z-index: 2; }
+        .container { max-width: var(--max); margin: 0 auto; }
+        .sec-title { text-align: center; margin-bottom: 5rem; }
+        .sec-title .label { font-family: var(--font-heading); color: var(--accent-1); text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 1rem; }
+        .sec-title h2 { font-size: clamp(2.5rem, 5vw, 4rem); text-transform: uppercase; line-height: 1; }
+
+        /* Dynamic Glass Cards */
+        .glass-card {
+          background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 3rem;
+          backdrop-filter: blur(16px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden;
+        }
+        .glass-card::before {
+          content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+          background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
+          opacity: 0; transition: opacity 0.5s; z-index: 0; pointer-events: none;
+        }
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .glass-card > * { position: relative; z-index: 1; }
+
+        /* Services Grid */
+        .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .svc-icon { 
+          width: 70px; height: 70px; border-radius: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+          display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 2rem; transition: all 0.5s;
+        }
+        .glass-card:hover .svc-icon { transform: scale(1.1) rotate(-5deg); border-color: var(--accent-1); background: rgba(0,255,135,0.05); box-shadow: 0 10px 20px rgba(0,255,135,0.1); }
+        .glass-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .glass-card p { color: var(--text-dim); font-size: 1rem; line-height: 1.7; }
+
+        /* Portfolio Grid */
+        .pf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 2rem; }
+        .pf-card { 
+          background: var(--surface); border: 1px solid var(--border); border-radius: 24px; overflow: hidden;
+          display: flex; flex-direction: column; text-decoration: none; color: var(--text); transition: all 0.5s;
+          position: relative;
+        }
+        .pf-card::before {
+          content: ''; position: absolute; inset: 0; pointer-events: none;
+          background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.05), transparent 40%);
+          opacity: 0; transition: opacity 0.5s; z-index: 3;
+        }
+        .pf-card:hover::before { opacity: 1; }
+        .pf-card:hover { transform: translateY(-10px); border-color: var(--accent-3); box-shadow: 0 20px 50px rgba(0, 229, 255, 0.15); }
+        
+        .pf-visual { height: 260px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .pf-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(3,3,5,0.95)); z-index: 1; }
+        
+        /* Custom Abstract Visuals for Projects */
+        .visual-gigmind { background: linear-gradient(135deg, #0f172a, #1e3a8a); }
+        .visual-gigmind .shape { width: 150px; height: 150px; border-radius: 30px; background: linear-gradient(45deg, #3b82f6, #06b6d4); transform: rotate(15deg); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)); transition: transform 0.7s; }
+        .pf-card:hover .visual-gigmind .shape { transform: rotate(0deg) scale(1.1); }
+
+        .visual-tuition { background: linear-gradient(135deg, #1e1b4b, #4c1d95); }
+        .visual-tuition .shape { width: 140px; height: 140px; border-radius: 50%; background: linear-gradient(45deg, #8b5cf6, #d946ef); box-shadow: inset -20px -20px 40px rgba(0,0,0,0.5); transition: transform 0.7s; }
+        .pf-card:hover .visual-tuition .shape { transform: scale(1.1) translate(-10px, -10px); }
+
+        .visual-gymflow { background: linear-gradient(135deg, #450a0a, #991b1b); }
+        .visual-gymflow .shape { width: 160px; height: 100px; border-radius: 20px; background: linear-gradient(45deg, #ef4444, #f97316); transform: skewX(-15deg); transition: transform 0.7s; }
+        .pf-card:hover .visual-gymflow .shape { transform: skewX(0deg) scale(1.1); }
+
+        .visual-crm { background: linear-gradient(135deg, #064e3b, #047857); }
+        .visual-crm .shape { width: 120px; height: 120px; background: linear-gradient(45deg, #10b981, #34d399); transform: rotate(45deg); transition: transform 0.7s; }
+        .pf-card:hover .visual-crm .shape { transform: rotate(90deg) scale(1.1); }
+
+        .pf-badge { 
+          position: absolute; top: 1.5rem; right: 1.5rem; z-index: 2; padding: 0.5rem 1.2rem; border-radius: 100px;
+          background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1);
+          font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff;
+        }
+        
+        .pf-content { padding: 2.5rem; position: relative; z-index: 2; flex-grow: 1; display: flex; flex-direction: column; background: var(--surface); }
+        .pf-content h3 { font-size: 1.6rem; margin-bottom: 0.8rem; transition: color 0.3s; }
+        .pf-card:hover .pf-content h3 { color: var(--accent-1); }
+        .pf-content p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; flex-grow: 1; }
+        .pf-tags { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .pf-tag { font-size: 0.75rem; padding: 0.4rem 1rem; border-radius: 100px; background: rgba(255,255,255,0.03); color: #fff; border: 1px solid var(--border); font-weight: 500; letter-spacing: 0.5px; }
+        .pf-card:hover .pf-tag { border-color: rgba(0,255,135,0.3); background: rgba(0,255,135,0.05); }
+        .pf-link-btn { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: #fff; border-top: 1px solid var(--border); padding-top: 1.5rem; transition: color 0.3s; }
+        .pf-card:hover .pf-link-btn { color: var(--accent-3); }
+        .pf-link-btn span { transition: transform 0.3s; }
+        .pf-card:hover .pf-link-btn span { transform: translateX(5px); }
+
+        /* Featured Portfolio override */
+        .pf-featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; }
+        .pf-featured .pf-visual { height: auto; min-height: 450px; }
+        .pf-featured .pf-content { padding: 4rem; justify-content: center; }
+        .pf-featured h3 { font-size: 2.5rem; margin-bottom: 1rem; }
+        @media(max-width: 960px) { .pf-featured { grid-template-columns: 1fr; } .pf-featured .pf-visual { min-height: 300px; } .pf-featured .pf-content { padding: 2.5rem; } }
+
+        /* Pricing Grid */
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .price-card { padding: 3rem 2.5rem; text-align: center; }
+        .price-card h3 { font-size: 1.2rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+        .price-card .price { font-family: var(--font-heading); font-size: 3rem; font-weight: 800; color: #fff; margin-bottom: 2rem; }
+        .price-card .price span { font-size: 1rem; color: var(--text-dim); font-weight: 500; font-family: var(--font-body); }
+        .price-features { list-style: none; margin-bottom: 2.5rem; text-align: left; }
+        .price-features li { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; color: var(--text-dim); font-size: 0.95rem; }
+        .price-features li::before { content: '✓'; color: var(--accent-1); font-weight: bold; }
+        .price-card .btn { width: 100%; }
+        
+        .price-card.popular { border-color: var(--accent-2); background: linear-gradient(to bottom, rgba(168,85,247,0.05), transparent); transform: scale(1.05); }
+        .price-card.popular:hover { transform: scale(1.05) translateY(-8px); border-color: var(--accent-1); }
+        .popular-badge { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--accent-2); color: #fff; padding: 0.4rem 1.2rem; border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Lead Capture */
+        .lead-box { max-width: 600px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 3rem; backdrop-filter: blur(16px); }
+        .lead-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .input-group { position: relative; }
+        .input-group input, .input-group textarea {
+          width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 12px;
+          padding: 1.2rem; color: #fff; font-family: var(--font-body); font-size: 1rem; transition: all 0.3s;
+        }
+        .input-group textarea { min-height: 120px; resize: vertical; }
+        .input-group input:focus, .input-group textarea:focus { outline: none; border-color: var(--accent-1); background: rgba(0,255,135,0.02); box-shadow: 0 0 0 4px rgba(0,255,135,0.1); }
+        .lead-form button { width: 100%; padding: 1.2rem; font-size: 1.1rem; }
+
+        /* Footer */
+        footer { padding: 4rem 2rem; border-top: 1px solid var(--border); text-align: center; position: relative; z-index: 2; }
+        .footer-logo { display: flex; align-items: center; justify-content: center; gap: 0.8rem; font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; color: #fff; }
+        .footer-logo img { height: 32px; filter: grayscale(1) brightness(1.5); }
+        footer p { color: var(--text-dim); font-size: 0.9rem; }
+
+        /* Marquee */
+        .marquee-wrap { padding: 3rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; background: rgba(0,0,0,0.3); position: relative; z-index: 2; }
+        .marquee { display: flex; gap: 4rem; animation: scrollLeft 40s linear infinite; width: max-content; }
+        .mq-item { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); text-transform: uppercase; white-space: nowrap; transition: all 0.4s; }
+        .mq-item:hover { color: #fff; -webkit-text-stroke: 0px; text-shadow: 0 0 30px rgba(255,255,255,0.4); transform: scale(1.05); }
+        @keyframes scrollLeft { to { transform: translateX(-50%); } }
+
+        /* Animations */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); filter: blur(10px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.85); box-shadow: 0 0 20px var(--accent-1); } }
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+        /* Responsive */
+        @media(max-width: 1024px) {
+          .hero h1 { font-size: clamp(3rem, 6vw, 5rem); }
+          .hero-stats { gap: 2rem; flex-wrap: wrap; }
+          .price-card.popular { transform: none; }
+          .price-card.popular:hover { transform: translateY(-8px); }
+        }
+        @media(max-width: 768px) {
+          .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(3,3,5,0.95); backdrop-filter: blur(20px); padding: 2rem; border-bottom: 1px solid var(--border); }
+          .nav-links.open { display: flex; }
+          .hamburger { display: block; }
+          section { padding: 5rem 1.5rem; }
+          .sec-title { margin-bottom: 3rem; }
+        }
+
+        /* Chatbot Base Override */
+        .chatbot { position: fixed; bottom: 2rem; right: 2rem; z-index: 1000; }
+        .chatbot-toggle { width: 64px; height: 64px; border-radius: 50%; background: var(--accent-1); color: #000; border: none; cursor: pointer; font-size: 1.8rem; box-shadow: 0 10px 30px rgba(0,255,135,0.4); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; justify-content: center; }
+        .chatbot-toggle:hover { transform: scale(1.1) rotate(10deg); }
+        .chatbot-window { position: absolute; bottom: 85px; right: 0; width: 360px; height: 480px; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); display: none; flex-direction: column; overflow: hidden; transform-origin: bottom right; animation: scaleIn 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .chatbot.open .chatbot-window { display: flex; }
+        .chatbot-header { background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); padding: 1.2rem; color: #fff; font-family: var(--font-heading); font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .chatbot-header .title { display: flex; align-items: center; gap: 0.5rem; }
+        .chatbot-header .title::before { content: ''; display: block; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-1); box-shadow: 0 0 10px var(--accent-1); }
+        .chatbot-close { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .chatbot-close:hover { background: rgba(255,0,85,0.8); }
+        .chatbot-messages { flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; scroll-behavior: smooth; }
+        .chat-msg { padding: 0.8rem 1.2rem; border-radius: 16px; max-width: 85%; font-size: 0.95rem; line-height: 1.5; }
+        .chat-msg.bot { background: rgba(255,255,255,0.05); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .chat-msg.user { background: var(--accent-1); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
+        .chatbot-input { padding: 1.2rem; border-top: 1px solid var(--border); display: flex; gap: 0.8rem; background: rgba(0,0,0,0.2); }
+        .chatbot-input input { flex: 1; padding: 0.8rem 1.2rem; border-radius: 100px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: #fff; font-family: var(--font-body); transition: border-color 0.3s; }
+        .chatbot-input input:focus { outline: none; border-color: var(--accent-1); }
+        .chatbot-input button { background: var(--accent-1); color: #000; border: none; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
+        .chatbot-input button:hover { transform: scale(1.1); }
       ` }} />
 
-      <div className="ambient" />
+      <div className="mesh-bg" />
+      <div className="noise" />
       <div id="cursor-glow" />
 
       {/* NAV */}
       <nav>
         <div className="nav-inner">
-          <a href="#" className="nav-brand"><span>Signhify</span></a>
-          <div className="nav-links">
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#profile">About</a>
-            <a href="/gymflow">Gymflow SaaS</a>
-            <div className="theme-toggle" role="button" aria-label="Toggle theme">
-              <button className="theme-btn active" data-theme="dark" aria-label="Dark mode">🌙</button>
-              <button className="theme-btn" data-theme="light" aria-label="Light mode">☀️</button>
-            </div>
-            <a href="#contact" className="nav-cta">Book Free Call</a>
+          <a href="#" className="nav-brand">
+            <Image src="/signhify-logo.png" alt="Signhify Logo" width={38} height={38} />
+            Signhify
+          </a>
+          <div className={`nav-links ${isNavOpen ? 'open' : ''}`}>
+            <a href="#services" onClick={() => setIsNavOpen(false)}>Services</a>
+            <a href="#portfolio" onClick={() => setIsNavOpen(false)}>Work</a>
+            <a href="#pricing" onClick={() => setIsNavOpen(false)}>Pricing</a>
+            <a href="#contact" className="nav-cta" onClick={() => setIsNavOpen(false)}>Book Free Call</a>
           </div>
-          <button className="hamburger" aria-label="Toggle menu">☰</button>
+          <button className="hamburger" onClick={() => setIsNavOpen(!isNavOpen)} aria-label="Toggle menu">
+            {isNavOpen ? '✕' : '☰'}
+          </button>
         </div>
       </nav>
 
       {/* HERO */}
       <section className="hero">
-        <div className="hero-inner container">
-          <div className="hero-left">
-            <div className="hero-badge"><span className="dot" /> Taking 3 New Clients This Month</div>
-            <h1>We Don&apos;t Run Ads.<br />We Engineer <span className="highlight">Revenue Machines.</span></h1>
-            <p className="hero-desc">No fluff. No guesswork. Just ruthless, data-driven strategies that turn every dollar into 3, 5, or 10x — backed by AI, obsessively optimized, and built to compound.</p>
-            <div className="hero-stats">
-              <div className="hero-stat"><div className="val">6+</div><div className="lab">Services</div></div>
-              <div className="hero-stat"><div className="val">5</div><div className="lab">Certifications</div></div>
-              <div className="hero-stat"><div className="val">100%</div><div className="lab">Dedicated</div></div>
-            </div>
-            <div className="hero-ctas">
-              <a href="#contact" className="btn btn-primary">Get Free Strategy Call →</a>
-              <a href="#portfolio" className="btn btn-outline">See Our Work</a>
-            </div>
+        <div className="hero-content">
+          <div className="badge"><span className="pulse-dot" /> Now Accepting 3 New Clients</div>
+          <h1>We Engineer <br /><span className="text-gradient">Revenue Machines</span></h1>
+          <p>No fluff. No guesswork. Just ruthless, data-driven strategy and premium SaaS engineering that turns every dollar into 10x — backed by AI and built to compound.</p>
+          
+          <div className="hero-btns">
+            <a href="#contact" className="btn btn-glow">Get Free Strategy Call</a>
+            <a href="#portfolio" className="btn btn-glass">Explore Our Work</a>
           </div>
-          <div className="hero-right">
-            <div className="hero-card">
-              <div className="hero-card-title">Live Performance Snapshot</div>
-              <div className="metric-grid">
-                <div className="metric"><div className="num g">6+</div><div className="lbl">Revenue Systems Built</div></div>
-                <div className="metric"><div className="num b">5</div><div className="lbl">Oracle Certifications</div></div>
-                <div className="metric"><div className="num p">2</div><div className="lbl">Global Job Simulations</div></div>
-                <div className="metric"><div className="num o">24/7</div><div className="lbl">AI-Powered Optimization</div></div>
-              </div>
+
+          <div className="hero-stats">
+            <div className="stat-item">
+              <span className="stat-val">5</span>
+              <span className="stat-lbl">Oracle Certs</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-val" style={{color: 'var(--accent-3)'}}>10x</span>
+              <span className="stat-lbl">Average ROI</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-val" style={{color: 'var(--accent-2)'}}>100%</span>
+              <span className="stat-lbl">Custom Built</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* MARQUEE */}
-      <div className="marquee-section">
+      <div className="marquee-wrap">
         <div className="marquee">
-          {['Meta Ads Audit','Google Ads','ROAS Optimization','Lead Funnels','Telegram Marketing','Web Development','AI Analytics','Conversion Optimization','Landing Pages','Performance Reporting','Growth Strategy','Meta Ads Audit','Google Ads','ROAS Optimization','Lead Funnels','Telegram Marketing','Web Development','AI Analytics','Conversion Optimization','Landing Pages','Performance Reporting','Growth Strategy'].map((item, i) => (
-            <span key={i} className="marquee-item">{item}</span>
+          {Array(3).fill(['SaaS Development', 'Growth Hacking', 'Meta Ads', 'Web Engineering', 'Conversion Rate Optimization', 'AI Analytics']).flat().map((item, i) => (
+            <span key={i} className="mq-item">{item}</span>
           ))}
         </div>
       </div>
 
       {/* SERVICES */}
       <section id="services">
-        <div className="sec-head reveal">
-          <div className="tag green">What We Do</div>
-          <h2>Services That <span className="hl">Print Money</span></h2>
-          <p>We don&apos;t do vanity metrics. Every move is calculated, every dollar tracked, every campaign built to outperform the last.</p>
-        </div>
-        <div className="services-grid container">
-          <div className="svc reveal reveal-delay-1">
-            <div className="svc-icon g">🚀</div>
-            <h3>Meta Ads That Scale</h3>
-            <p>Full-funnel Facebook & Instagram campaigns engineered for maximum ROAS. Scroll-stopping creatives, smart audiences, and relentless A/B testing.</p>
+        <div className="container">
+          <div className="sec-title reveal">
+            <span className="label">Capabilities</span>
+            <h2>Systems That <span className="text-gradient-alt">Scale</span></h2>
           </div>
-          <div className="svc reveal reveal-delay-2">
-            <div className="svc-icon b">🎯</div>
-            <h3>Google Ads With Intent</h3>
-            <p>Capture high-intent buyers at the exact moment they&apos;re searching. Search, display, and YouTube strategies built to dominate your niche.</p>
-          </div>
-          <div className="svc reveal reveal-delay-3">
-            <div className="svc-icon p">💰</div>
-            <h3>Lead Funnels That Convert</h3>
-            <p>High-converting landing pages + automated email sequences that turn cold traffic into paying customers on autopilot.</p>
-          </div>
-          <div className="svc reveal reveal-delay-4">
-            <div className="svc-icon o">📱</div>
-            <h3>Telegram Growth Systems</h3>
-            <p>Custom landing pages designed to explode your Telegram channel membership. Built specifically for sports tips, trading signals, and premium communities.</p>
-          </div>
-          <div className="svc reveal reveal-delay-5">
-            <div className="svc-icon b">⚡</div>
-            <h3>Web & App Development</h3>
-            <p>Lightning-fast websites and web apps built with modern stacks. Optimized for speed, conversions, and scalability from day one.</p>
-          </div>
-          <div className="svc reveal reveal-delay-5">
-            <div className="svc-icon g">🤖</div>
-            <h3>AI-Powered Analytics</h3>
-            <p>Leverage Oracle-certified AI expertise to uncover hidden profit opportunities. Real-time dashboards and predictive optimization.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* PRICING */}
-      <section id="pricing">
-        <div className="sec-head reveal">
-          <div className="tag blue">Investment</div>
-          <h2>Clear Pricing For <span className="hl">Real Growth</span></h2>
-          <p>Transparent starting prices for our core services. No hidden fees or surprises.</p>
-        </div>
-        <div className="pricing-grid container">
-          <div className="price-card reveal reveal-delay-1">
-            <div className="price-icon g">📈</div>
-            <h3>Digital Marketing</h3>
-            <div className="price">₹9,999<span>/Month</span></div>
-            <p>Meta & Google Ads, PPC, Lead Generation</p>
-            <a href="#contact" className="btn btn-outline">Start Growing</a>
-          </div>
-          <div className="price-card reveal reveal-delay-2">
-            <div className="price-icon o">🎨</div>
-            <h3>Design & Branding</h3>
-            <div className="price">₹5,999<span /></div>
-            <p>Logo, Graphics, Creatives, Branding</p>
-            <a href="#contact" className="btn btn-outline">Start Growing</a>
-          </div>
-          <div className="price-card reveal reveal-delay-3">
-            <div className="price-icon b">💻</div>
-            <h3>Web Development</h3>
-            <div className="price">₹7,999<span /></div>
-            <p>Modern, Responsive, Custom Solutions</p>
-            <a href="#contact" className="btn btn-outline">Start Growing</a>
-          </div>
-          <div className="price-card reveal reveal-delay-4">
-            <div className="price-icon p">🔍</div>
-            <h3>SEO</h3>
-            <div className="price">₹8,999<span>/Month</span></div>
-            <p>On-Page, Off-Page, Technical SEO</p>
-            <a href="#contact" className="btn btn-outline">Start Growing</a>
-          </div>
-          <div className="price-card reveal reveal-delay-5">
-            <div className="price-icon g">📱</div>
-            <h3>Social Media</h3>
-            <div className="price">Custom<span /></div>
-            <p>Content, Management, Ads, Engagement</p>
-            <a href="#contact" className="btn btn-outline">Start Growing</a>
+          <div className="svc-grid">
+            <div className="glass-card reveal delay-1">
+              <div className="svc-icon">⚡</div>
+              <h3>Premium SaaS Dev</h3>
+              <p>Lightning-fast web applications built with modern stacks (Next.js, Supabase). Optimized for speed, scale, and seamless user experiences.</p>
+            </div>
+            <div className="glass-card reveal delay-2">
+              <div className="svc-icon">🎯</div>
+              <h3>Performance Ads</h3>
+              <p>Full-funnel Meta & Google campaigns engineered for maximum ROAS. Scroll-stopping creatives and relentless A/B testing.</p>
+            </div>
+            <div className="glass-card reveal delay-3">
+              <div className="svc-icon">🤖</div>
+              <h3>AI & Analytics</h3>
+              <p>Leverage Oracle-certified AI expertise to uncover hidden profit opportunities. Real-time dashboards and predictive optimization.</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* PORTFOLIO */}
       <section id="portfolio">
-        <div className="sec-head reveal">
-          <div className="tag blue">Our Work</div>
-          <h2>Results That <span className="hl">Speak For Themselves</span></h2>
-          <p>Every project is a profit system — engineered, tested, and scaled. Don&apos;t take our word for it. See the receipts.</p>
-        </div>
         <div className="container">
-          {/* GYMFLOW SAAS - FEATURED PROJECT */}
-          <div className="portfolio-cat reveal">
-            <div className="cat-title">🏆 Featured Project — Gymflow SaaS</div>
-            <div className="cat-sub">An AI-powered gym management SaaS for handling members, payments, plans, and analytics across web and mobile platforms.</div>
-            <div className="portfolio-grid">
-              <div className="pf-card pf-featured pf-gymflow" id="gymflow-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#ff6b35,#ff9f1c,#ffbf69)'}} data-tag="SaaS • Fitness Tech">
-                  <div className="gymflow-preview-icons">🏋️📱💳📊</div>
-                </div>
-                <div className="pf-body">
-                  <h3>Gymflow SaaS</h3>
-                  <p>AI-powered gym management platform with multi-tenant architecture, real-time dashboard, member management, payment processing, and comprehensive analytics. Built for gym owners who want to scale.</p>
-                  <div className="gymflow-tags">
-                    <span className="gymflow-tag">SaaS</span>
-                    <span className="gymflow-tag">Fitness Tech</span>
-                    <span className="gymflow-tag">Automation</span>
-                    <span className="gymflow-tag">Mobile + Web</span>
-                  </div>
-                  <div className="gymflow-metrics">
-                    <div className="gymflow-metric"><span className="gm-num">Performance Optimized</span></div>
-                    <div className="gymflow-metric"><span className="gm-num">Multi-tenant Architecture</span></div>
-                    <div className="gymflow-metric"><span className="gm-num">Real-time Dashboard</span></div>
-                  </div>
-                  <div className="gymflow-btns">
-                    <a href="https://gymflow-saas.vercel.app/" target="_blank" className="btn btn-primary">🌐 Live Web App</a>
-                    <a href="https://expo.dev/artifacts/eas/mmUgBVLCg7NSpwHwBpn2AA.apk" target="_blank" className="btn btn-outline">📲 Download APK</a>
-                  </div>
-                </div>
+          <div className="sec-title reveal">
+            <span className="label">The Vault</span>
+            <h2>Our <span className="text-gradient">Masterpieces</span></h2>
+          </div>
+          
+          <div className="pf-grid">
+            {/* GIGMIND (NEW) */}
+            <a href="https://gigmind-gamma.vercel.app/" target="_blank" className="pf-card pf-featured reveal">
+              <div className="pf-visual visual-gigmind">
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(6, 182, 212, 0.2)', borderColor: '#06b6d4'}}>AI Marketplace</div>
               </div>
-            </div>
-          </div>
+              <div className="pf-content">
+                <h3 className="text-gradient">GigMind</h3>
+                <p>An AI-powered service marketplace for India. Just tell the AI what you need—whether it's real estate, medical help, or home repair—and it matches you with verified providers securely.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Next.js</span>
+                  <span className="pf-tag">AI Chat matching</span>
+                  <span className="pf-tag">Escrow Payments</span>
+                </div>
+                <div className="pf-link-btn">View Platform <span>→</span></div>
+              </div>
+            </a>
 
-          {/* Recent Works: Featured */}
-          <div className="portfolio-cat reveal">
-            <div className="cat-title">🔥 Recent Work — WhatsApp CRM MVP</div>
-            <div className="cat-sub">A live deployable CRM MVP that shows Signhify can go beyond ad management and build lead-handling systems for businesses that need shared inbox visibility, follow-ups, and cleaner pipeline control.</div>
-            <div className="portfolio-grid">
-              <a href="https://drive.google.com/file/d/16dHEoRCJvwYv6YEa9Qe8a7HSuxVc_iTT/view?usp=sharing" target="_blank" className="pf-card pf-featured">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#1877f2,#a855f7)'}} data-tag="Featured Report">📊</div>
-                <div className="pf-body">
-                  <h3>Meta Ads Performance Audit & Optimization Report</h3>
-                  <p>A full-spectrum audit dissecting campaign structure, audience segmentation, creative fatigue, and bidding strategy — exposing exactly where ad spend was leaking and mapping a step-by-step optimization blueprint to unlock exponential ROAS.</p>
-                  <span className="pf-link">View Full Report →</span>
+            {/* TUITIONTRACK (NEW) */}
+            <a href="https://tuitiontrack-app.vercel.app/" target="_blank" className="pf-card reveal delay-1">
+              <div className="pf-visual visual-tuition">
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(139, 92, 246, 0.2)', borderColor: '#8b5cf6'}}>EdTech SaaS</div>
+              </div>
+              <div className="pf-content">
+                <h3>TuitionTrack</h3>
+                <p>Complete operations SaaS for tutors. Manage homework, attendance, fees, and provide instant visibility to parents via a clean dashboard.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Supabase</span>
+                  <span className="pf-tag">Parent Portal</span>
+                  <span className="pf-tag">Multi-tenant</span>
                 </div>
-              </a>
-              <a href="https://frontend-omega-eight-zbfx853zu2.vercel.app" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#25d366,#128c7e)'}} data-tag="Live CRM">📱</div>
-                <div className="pf-body">
-                  <h3>WhatsApp CRM - Full Stack MVP</h3>
-                  <p>Complete WhatsApp Business CRM with Frontend + Backend. Features: Contact management, Conversation tracking, Message templates, Analytics dashboard, Admin panel. Fully deployable MVP ready for production use.</p>
-                  <span className="pf-link">View Frontend →</span>
-                </div>
-              </a>
-            </div>
-          </div>
+                <div className="pf-link-btn">View App <span>→</span></div>
+              </div>
+            </a>
 
-          {/* Telegram */}
-          <div className="portfolio-cat reveal">
-            <div className="cat-title">📱 Telegram Channel Landing Pages</div>
-            <div className="cat-sub">Conversion-optimized pages built to turn cold traffic into loyal community members</div>
-            <div className="portfolio-grid">
-              <a href="https://vip-free-tennis-page.vercel.app/" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#00b847,#008335)'}} data-tag="Live">🎾</div>
-                <div className="pf-body">
-                  <h3>VIP Free Tennis</h3>
-                  <p>Free tennis tips & predictions page that converts sports enthusiasts into loyal members</p>
-                  <span className="pf-link">View Live →</span>
+            {/* GYMFLOW */}
+            <a href="https://gymflow-saas.vercel.app/" target="_blank" className="pf-card reveal delay-2">
+              <div className="pf-visual visual-gymflow">
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(239, 68, 68, 0.2)', borderColor: '#ef4444'}}>Fitness Tech</div>
+              </div>
+              <div className="pf-content">
+                <h3>Gymflow</h3>
+                <p>AI-powered gym management platform. Handles member onboarding, subscriptions, custom workout plans, and real-time facility analytics.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">SaaS</span>
+                  <span className="pf-tag">Web & Mobile API</span>
                 </div>
-              </a>
-              <a href="https://tennis-king-jackpot.vercel.app/" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#ffd700,#ff8c00)'}} data-tag="Live">👑</div>
-                <div className="pf-body">
-                  <h3>Tennis King Jackpot</h3>
-                  <p>Exclusive jackpot predictions page for tennis enthusiasts seeking winning edge</p>
-                  <span className="pf-link">View Live →</span>
-                </div>
-              </a>
-              <a href="https://cricket-king-rahul.vercel.app/" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#ff4757,#c0392b)'}} data-tag="Live">🏏</div>
-                <div className="pf-body">
-                  <h3>Cricket King Rahul</h3>
-                  <p>Premium cricket tips & match predictions with insider-level analysis</p>
-                  <span className="pf-link">View Live →</span>
-                </div>
-              </a>
-              <a href="https://hari-cricket.vercel.app/" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#3742fa,#2f3542)'}} data-tag="Live">🏏</div>
-                <div className="pf-body">
-                  <h3>Hari Cricket</h3>
-                  <p>Daily cricket predictions, team analysis & betting insights for serious players</p>
-                  <span className="pf-link">View Live →</span>
-                </div>
-              </a>
-              <a href="https://rahul-silk.vercel.app/" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#a55eea,#8854d0)'}} data-tag="Live">🧣</div>
-                <div className="pf-body">
-                  <h3>Rahul Silk</h3>
-                  <p>Exclusive tips & premium predictions for serious investors</p>
-                  <span className="pf-link">View Live →</span>
-                </div>
-              </a>
-            </div>
-          </div>
+                <div className="pf-link-btn">View Dashboard <span>→</span></div>
+              </div>
+            </a>
 
-          {/* Custom Development */}
-          <div className="portfolio-cat reveal">
-            <div className="cat-title">💻 Custom Development Projects</div>
-            <div className="cat-sub">Full-stack platforms engineered for speed, scale, and conversion from day one</div>
-            <div className="portfolio-grid">
-              <a href="https://frontend-omega-eight-zbfx853zu2.vercel.app" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#25d366,#128c7e)'}} data-tag="Full Stack MVP">📱</div>
-                <div className="pf-body">
-                  <h3>WhatsApp CRM - Full Stack MVP</h3>
-                  <p>Complete WhatsApp Business CRM with Frontend + Backend. Features include: Contact management, Conversation tracking, Message templates, Analytics dashboard, Admin panel. Fully deployable MVP ready for production use.</p>
-                  <span className="pf-link">View Frontend →</span>
+            {/* WHATSAPP CRM */}
+            <a href="https://frontend-omega-eight-zbfx853zu2.vercel.app" target="_blank" className="pf-card reveal delay-1">
+              <div className="pf-visual visual-crm">
+                <div className="shape"></div>
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(16, 185, 129, 0.2)', borderColor: '#10b981'}}>Enterprise MVP</div>
+              </div>
+              <div className="pf-content">
+                <h3>WhatsApp CRM</h3>
+                <p>Full-stack deployable CRM MVP. Provides shared inbox visibility, automated follow-ups, and clean pipeline control for high-volume sales teams.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Node.js API</span>
+                  <span className="pf-tag">Conversational UI</span>
                 </div>
-              </a>
-              <a href="https://whatsapp-crm-backend-one.vercel.app" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#4d9fff,#2d7dd2)'}} data-tag="Backend API">⚙️</div>
-                <div className="pf-body">
-                  <h3>WhatsApp CRM Backend API</h3>
-                  <p>RESTful API built with Node.js/Express. Features: User authentication, WhatsApp session management, Contact & conversation CRUD, Message handling, Analytics endpoints, MongoDB integration. Production-ready backend service.</p>
-                  <span className="pf-link">View Backend API →</span>
-                </div>
-              </a>
-              <a href="https://gplesports.vercel.app/" target="_blank" className="pf-card">
-                <div className="pf-preview" style={{background:'linear-gradient(135deg,#ff6b35,#f7931e)'}} data-tag="Live">⚽</div>
-                <div className="pf-body">
-                  <h3>GPLE Sports</h3>
-                  <p>Full-featured sports betting tips platform with live odds, predictions & user dashboard</p>
-                  <span className="pf-link">View Live →</span>
-                </div>
-              </a>
-            </div>
+                <div className="pf-link-btn">View MVP <span>→</span></div>
+              </div>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* PROFILE */}
-      <section id="profile">
-        <div className="sec-head reveal">
-          <div className="tag purple">About Us</div>
-          <h2>Why Top Brands <span className="hl">Choose Us</span></h2>
-          <p>5 Oracle certifications. Global agency experience. A track record that speaks louder than promises.</p>
-        </div>
-        <div className="profile-grid container">
-          <div className="prf reveal reveal-delay-1">
-            <div className="prf-icon">🎓</div>
-            <h3>Elite Education</h3>
-            <p>University of Delhi (2022–2026), BA from Vinayaka Missions Sikkim University. Strong academic foundation from BSEB and CBSE boards.</p>
+      {/* PRICING */}
+      <section id="pricing">
+        <div className="container">
+          <div className="sec-title reveal">
+            <span className="label">Investment</span>
+            <h2>Transparent <span className="text-gradient-alt">Pricing</span></h2>
           </div>
-          <div className="prf reveal reveal-delay-2">
-            <div className="prf-icon">🏆</div>
-            <h3>5 Oracle Certifications</h3>
-            <p>OCI Foundations 2025, Data Science Professional, AI Foundations, OCI Generative AI Professional, Data Platform Foundations.</p>
-          </div>
-          <div className="prf reveal reveal-delay-3">
-            <div className="prf-icon">💼</div>
-            <h3>Real Experience</h3>
-            <p>Yescom India Softech, HCLTech Internship, Accenture UK Developer Simulation, Deloitte Australia Cybersecurity Simulation.</p>
+          <div className="price-grid">
+            <div className="glass-card price-card reveal delay-1">
+              <h3>Web Development</h3>
+              <div className="price">₹7,999<span>/Start</span></div>
+              <ul className="price-features">
+                <li>Modern Tech Stack (Next.js)</li>
+                <li>Responsive Premium Design</li>
+                <li>Speed & SEO Optimized</li>
+                <li>High Conversion Layouts</li>
+              </ul>
+              <a href="#contact" className="btn btn-glass">Start Project</a>
+            </div>
+            
+            <div className="glass-card price-card popular reveal delay-2">
+              <div className="popular-badge">Most Popular</div>
+              <h3 style={{color: '#fff'}}>Digital Marketing</h3>
+              <div className="price" style={{color: 'var(--accent-1)'}}>₹9,999<span>/Month</span></div>
+              <ul className="price-features">
+                <li style={{color: '#fff'}}>Meta & Google Ads Management</li>
+                <li style={{color: '#fff'}}>Advanced Lead Funnels</li>
+                <li style={{color: '#fff'}}>ROAS Optimization</li>
+                <li style={{color: '#fff'}}>Weekly Analytics Reports</li>
+              </ul>
+              <a href="#contact" className="btn btn-glow">Scale Now</a>
+            </div>
+
+            <div className="glass-card price-card reveal delay-3">
+              <h3>SEO Excellence</h3>
+              <div className="price">₹8,999<span>/Month</span></div>
+              <ul className="price-features">
+                <li>Deep Technical SEO Audit</li>
+                <li>High-Quality Backlinking</li>
+                <li>Content Strategy</li>
+                <li>Keyword Domination</li>
+              </ul>
+              <a href="#contact" className="btn btn-glass">Rank Higher</a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CONTACT */}
       <section id="contact">
-        <div className="sec-head reveal">
-          <div className="tag orange">Let&apos;s Talk</div>
-          <h2>Ready to <span className="hl">10x Your Revenue?</span></h2>
-          <p>Your competitors are already scaling. Your free strategy call is one click away.</p>
-        </div>
-        <div className="contact-grid container">
-          <a href="mailto:piyushrajsingh092@gmail.com" className="ctc reveal reveal-delay-1">
-            <div className="ctc-icon">📧</div>
-            <h3>Email Us</h3>
-            <p>piyushrajsingh092@gmail.com</p>
-          </a>
-          <a href="https://wa.me/916202442690" target="_blank" className="ctc reveal reveal-delay-2">
-            <div className="ctc-icon">💬</div>
-            <h3>WhatsApp</h3>
-            <p>+91 62024 42690</p>
-          </a>
-          <a href="https://www.linkedin.com/in/piyushraj-singh" target="_blank" className="ctc reveal reveal-delay-3">
-            <div className="ctc-icon">💼</div>
-            <h3>LinkedIn</h3>
-            <p>Connect with us</p>
-          </a>
-        </div>
-
-        {/* LEAD CAPTURE FORM */}
-        <div className="lead-form reveal">
-          <h3>🚀 Get Your Free Consultation</h3>
-          <form id="leadForm">
-            <input type="text" name="name" placeholder="Your Name" required aria-label="Your name" />
-            <input type="email" name="email" placeholder="Email Address" required aria-label="Email address" />
-            <input type="tel" name="phone" placeholder="WhatsApp Number" required aria-label="WhatsApp number" />
-            <textarea name="message" placeholder="Tell us about your project or requirements..." aria-label="Project details" />
-            <button type="submit" className="btn btn-primary">Send Inquiry →</button>
-          </form>
-        </div>
-      </section>
-
-      {/* CTA SECTION */}
-      <section className="cta-section">
-        <div className="cta-inner reveal">
-          <h2>Build Your SaaS With Us</h2>
-          <p>Turn your idea into a production-ready SaaS product. From MVP to scale, we handle everything.</p>
-          <div className="cta-btns">
-            <a href="#contact" className="btn btn-primary">Book Free Consultation →</a>
-            <a href="https://gymflow-saas.vercel.app/" target="_blank" className="btn btn-outline">View Gymflow Demo</a>
+        <div className="container">
+          <div className="sec-title reveal">
+            <span className="label">Initiate</span>
+            <h2>Let's Build <span className="text-gradient">The Future</span></h2>
+          </div>
+          
+          <div className="lead-box reveal">
+            <form id="leadForm" className="lead-form">
+              <div className="input-group">
+                <input type="text" name="name" placeholder="Your Full Name" required />
+              </div>
+              <div className="input-group">
+                <input type="email" name="email" placeholder="Business Email" required />
+              </div>
+              <div className="input-group">
+                <input type="tel" name="phone" placeholder="WhatsApp Number" required />
+              </div>
+              <div className="input-group">
+                <textarea name="message" placeholder="Tell us about your vision, project, or current bottlenecks..." required></textarea>
+              </div>
+              <button type="submit" className="btn btn-glow">Send Transmission ↗</button>
+            </form>
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
       <footer>
+        <div className="footer-logo">
+          <Image src="/signhify-logo.png" alt="Signhify Logo" width={32} height={32} />
+          Signhify
+        </div>
         <p>© 2026 Signhify Agency. Engineered to convert. Built to scale.</p>
-        <p style={{marginTop:'.5rem',fontSize:'.75rem',color:'var(--text-muted)'}}>Powered by <strong style={{color:'var(--green)'}}>Signhify</strong> — Building premium SaaS products</p>
       </footer>
 
       {/* AI CHATBOT */}
       <div className="chatbot" id="chatbot">
         <div className="chatbot-window">
           <div className="chatbot-header">
-            <span>🤖 Signhify AI Assistant</span>
-            <button className="chatbot-close" aria-label="Close chat">×</button>
+            <div className="title">Signhify Nexus AI</div>
+            <button className="chatbot-close" aria-label="Close chat">✕</button>
           </div>
           <div className="chatbot-messages" id="chatMessages">
-            <div className="chat-msg bot">Hi! I&apos;m here to help. Ask me about our services, pricing, or how we can help grow your business!</div>
+            <div className="chat-msg bot">Initiating connection...<br/><br/>Hello! I'm the Signhify Nexus. How can I assist in scaling your vision today?</div>
           </div>
           <div className="chatbot-input">
-            <input type="text" id="chatInput" placeholder="Type your message..." aria-label="Chat message" />
-            <button aria-label="Send message">➤</button>
+            <input type="text" id="chatInput" placeholder="Type a command..." aria-label="Chat message" />
+            <button aria-label="Send message">↗</button>
           </div>
         </div>
-        <button className="chatbot-toggle" aria-label="Open chat">💬</button>
+        <button className="chatbot-toggle" aria-label="Open chat">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </button>
       </div>
     </>
   )
