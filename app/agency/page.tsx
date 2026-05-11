@@ -501,7 +501,7 @@ export default function AgencyPage() {
       <nav>
         <div className="nav-inner">
           <a href="#" className="nav-brand">
-            <Image src="/signhify-logo-new.png" alt="Signhify Logo" width={38} height={38} className="nav-logo" />
+            <Image src="/signhify-logo.png" alt="Signhify Logo" width={38} height={38} className="nav-logo" />
             Signhify
           </a>
           <div className={`nav-links ${isNavOpen ? 'open' : ''}`}>
@@ -590,6 +590,38 @@ export default function AgencyPage() {
           </div>
           
           <div className="pf-grid">
+            {/* ─── CATEGORY: NON-PROFIT & SOCIAL IMPACT ─── */}
+            <div className="pf-category">
+              <h4>🌍 Non-Profit & Social Impact</h4>
+              <p>Purpose-driven platforms serving communities through education, health & welfare</p>
+            </div>
+
+            {/* SEWARTH PATH SANSTHANAM */}
+            <a href="https://sewarthpathsansthanam.vercel.app/" target="_blank" className="pf-card pf-featured">
+              <div className="pf-visual" style={{background: 'linear-gradient(135deg, #E07B39, #c45d15)'}}>
+                <img src="/spf-logo.png" alt="Sewarth Path Sansthanam" style={{width: '200px', height: '200px', objectFit: 'contain', borderRadius: '24px', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))'}} />
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(224, 123, 57, 0.2)', borderColor: '#E07B39'}}>NGO Platform</div>
+              </div>
+              <div className="pf-content">
+                <h3>Sewarth Path Sansthanam</h3>
+                <p>Full-featured NGO platform for a non-profit dedicated to Education, Health, Culture, and Social Welfare for marginalized communities. Features multilingual support, Razorpay donation integration, and a clean donor experience.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Next.js</span>
+                  <span className="pf-tag">NGO</span>
+                  <span className="pf-tag">Donations</span>
+                  <span className="pf-tag">Multilingual</span>
+                </div>
+                <div className="pf-link-btn">View Platform <span>→</span></div>
+              </div>
+            </a>
+
+            {/* ─── CATEGORY: SAAS PRODUCTS ─── */}
+            <div className="pf-category">
+              <h4>🚀 SaaS Products</h4>
+              <p>Custom-built software products engineered for scale and performance</p>
+            </div>
+
             {/* GIGMIND (NEW) */}
             <a href="https://gigmind-gamma.vercel.app/" target="_blank" className="pf-card pf-featured">
               <div className="pf-visual visual-gigmind">
@@ -837,31 +869,6 @@ export default function AgencyPage() {
                   <span className="pf-tag">Sports</span>
                 </div>
                 <div className="pf-link-btn">View Live <span>→</span></div>
-              </div>
-            </a>
-
-            {/* ─── CATEGORY: NON-PROFIT & SOCIAL IMPACT ─── */}
-            <div className="pf-category">
-              <h4>🌍 Non-Profit & Social Impact</h4>
-              <p>Purpose-driven platforms serving communities through education, health & welfare</p>
-            </div>
-
-            <a href="https://sewarthpathsansthanam.vercel.app/" target="_blank" className="pf-card">
-              <div className="pf-visual" style={{background: 'linear-gradient(135deg, #E07B39, #c45d15)'}}>
-                <img src="/spf-logo.png" alt="Sewarth Path Sansthanam" style={{width: '160px', height: '160px', objectFit: 'contain', borderRadius: '20px', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))'}} />
-                <div className="pf-overlay"></div>
-                <div className="pf-badge" style={{background: 'rgba(224, 123, 57, 0.2)', borderColor: '#E07B39'}}>NGO Platform</div>
-              </div>
-              <div className="pf-content">
-                <h3>Sewarth Path Sansthanam</h3>
-                <p>Full-featured NGO platform for Sewarth Path Sansthanam — a non-profit dedicated to Education, Health, Culture, and Social Welfare for marginalized communities. Features multilingual support, Razorpay donation integration, and a clean donor experience.</p>
-                <div className="pf-tags">
-                  <span className="pf-tag">Next.js</span>
-                  <span className="pf-tag">NGO</span>
-                  <span className="pf-tag">Donations</span>
-                  <span className="pf-tag">Multilingual</span>
-                </div>
-                <div className="pf-link-btn">View Platform <span>→</span></div>
               </div>
             </a>
           </div>

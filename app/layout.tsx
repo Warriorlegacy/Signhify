@@ -12,7 +12,7 @@ const orgSchema = {
   "@type": "Organization",
   "name": "Signhify Agency",
   "url": BASE_URL,
-  "logo": `${BASE_URL}/signhify-logo-new.png`,
+  "logo": `${BASE_URL}/signhify-logo.png`,
   "description": "Performance marketing and SaaS development agency. We engineer revenue machines that turn every dollar into 10x using AI-powered strategies.",
   "founder": {
     "@type": "Person",
@@ -45,7 +45,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Signhify Agency",
-  "image": `${BASE_URL}/signhify-logo-new.png`,
+  "image": `${BASE_URL}/signhify-logo.png`,
   "url": BASE_URL,
   "description": "Performance marketing and SaaS development agency with Oracle-certified experts delivering 10x ROI.",
   "telephone": "+91-62024-42690",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     description: 'We engineer revenue machines that turn every dollar into 3, 5, or 10x. AI-powered performance marketing + custom SaaS development by Oracle-certified experts.',
     images: [
       {
-        url: '/signhify-logo-new.png',
+        url: '/signhify-logo.png',
         width: 1200,
         height: 630,
         alt: 'Signhify Agency - Performance Marketing & SaaS Development',
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
     creator: '@piyushraj_singh',
     title: 'Signhify Agency — Revenue Machines Built With AI',
     description: 'Performance marketing + SaaS development that delivers 10x ROI. Meta Ads, Google Ads, AI strategies, and custom web applications.',
-    images: ['/signhify-logo-new.png'],
+    images: ['/signhify-logo.png'],
   },
   alternates: {
     canonical: BASE_URL,
