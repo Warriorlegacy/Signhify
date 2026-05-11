@@ -31,6 +31,9 @@ Signhify is a data-driven digital marketing and SaaS engineering agency. We don'
 - **GPLE Sports** (gplesports.vercel.app) — Full-featured sports betting tips platform
 - **WhatsApp CRM Backend API** (whatsapp-crm-backend-one.vercel.app) — Node.js/Express RESTful API with MongoDB
 
+### Non-Profit & Social Impact:
+- **Sewarth Path Sansthanam** (sewarthpathsansthanam.vercel.app) — Full-featured NGO platform for a non-profit dedicated to Education, Health, Culture, and Social Welfare. Features multilingual support, Razorpay donation integration, and clean donor experience. Built with Next.js.
+
 ### Telegram Channel Landing Pages (Conversion Funnels):
 - VIP Free Tennis (vip-free-tennis-page.vercel.app)
 - Tennis King Jackpot (tennis-king-jackpot.vercel.app)

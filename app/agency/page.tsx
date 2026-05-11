@@ -221,7 +221,7 @@ export default function AgencyPage() {
         .nav-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
         .nav-brand { display: flex; align-items: center; gap: 0.8rem; font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: #fff; letter-spacing: -0.03em; }
         .nav-brand img { height: 38px; width: 38px; border-radius: 10px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .nav-brand:hover img { transform: scale(1.1) rotate(-5deg); box-shadow: 0 0 20px rgba(0, 255, 135, 0.4); }
+        .nav-brand:hover img, .nav-brand:hover .nav-logo { transform: scale(1.15) rotate(8deg); box-shadow: 0 0 30px rgba(0, 255, 135, 0.5), 0 10px 40px rgba(0, 255, 135, 0.3); }
         
         .nav-links { display: flex; align-items: center; gap: 2.5rem; }
         .nav-links a { color: var(--text-dim); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; position: relative; }
@@ -501,7 +501,7 @@ export default function AgencyPage() {
       <nav>
         <div className="nav-inner">
           <a href="#" className="nav-brand">
-            <Image src="/signhify-logo.png" alt="Signhify Logo" width={38} height={38} />
+            <Image src="/signhify-logo-new.png" alt="Signhify Logo" width={38} height={38} className="nav-logo" />
             Signhify
           </a>
           <div className={`nav-links ${isNavOpen ? 'open' : ''}`}>
@@ -839,6 +839,31 @@ export default function AgencyPage() {
                 <div className="pf-link-btn">View Live <span>→</span></div>
               </div>
             </a>
+
+            {/* ─── CATEGORY: NON-PROFIT & SOCIAL IMPACT ─── */}
+            <div className="pf-category">
+              <h4>🌍 Non-Profit & Social Impact</h4>
+              <p>Purpose-driven platforms serving communities through education, health & welfare</p>
+            </div>
+
+            <a href="https://sewarthpathsansthanam.vercel.app/" target="_blank" className="pf-card">
+              <div className="pf-visual" style={{background: 'linear-gradient(135deg, #E07B39, #c45d15)'}}>
+                <img src="/spf-logo.png" alt="Sewarth Path Sansthanam" style={{width: '160px', height: '160px', objectFit: 'contain', borderRadius: '20px', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))'}} />
+                <div className="pf-overlay"></div>
+                <div className="pf-badge" style={{background: 'rgba(224, 123, 57, 0.2)', borderColor: '#E07B39'}}>NGO Platform</div>
+              </div>
+              <div className="pf-content">
+                <h3>Sewarth Path Sansthanam</h3>
+                <p>Full-featured NGO platform for Sewarth Path Sansthanam — a non-profit dedicated to Education, Health, Culture, and Social Welfare for marginalized communities. Features multilingual support, Razorpay donation integration, and a clean donor experience.</p>
+                <div className="pf-tags">
+                  <span className="pf-tag">Next.js</span>
+                  <span className="pf-tag">NGO</span>
+                  <span className="pf-tag">Donations</span>
+                  <span className="pf-tag">Multilingual</span>
+                </div>
+                <div className="pf-link-btn">View Platform <span>→</span></div>
+              </div>
+            </a>
           </div>
         </div>
       </section>
@@ -922,7 +947,7 @@ export default function AgencyPage() {
       {/* FOOTER */}
       <footer>
         <div className="footer-logo">
-          <Image src="/signhify-logo.png" alt="Signhify Logo" width={32} height={32} />
+          <Image src="/signhify-logo-new.png" alt="Signhify Logo" width={32} height={32} className="nav-logo" />
           Signhify
         </div>
         <p>© 2026 Signhify Agency. Engineered to convert. Built to scale.</p>

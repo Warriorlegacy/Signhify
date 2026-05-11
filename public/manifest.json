@@ -1,0 +1,21 @@
+{
+  "name": "Signhify Agency",
+  "short_name": "Signhify",
+  "description": "Performance Marketing & SaaS Development Agency - We engineer revenue machines that turn every dollar into 10x.",
+  "start_url": "https://signhify.vercel.app",
+  "display": "standalone",
+  "background_color": "#030305",
+  "theme_color": "#00ff87",
+  "icons": [
+    {
+      "src": "/signhify-logo-new.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/signhify-logo-new.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
